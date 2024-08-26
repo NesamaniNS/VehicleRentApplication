@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booked Vehicle</title>
+    <style>
+        body{
+            background-color: white;
+        }
+        h3{
+            text-align: center;
+            color: forestgreen;
+        }
+        table {
+        margin: 50px auto;
+        width: 100%;
+        }
+        table, th, td {
+        border-collapse: collapse;
+        }
+        
+        th, td {
+        padding: 15px;
+        } 
+    
+        tr:nth-child(even){
+            background-color: rgb(232, 221, 213);
+    
+        }
+        tr:nth-child(odd){
+            background-color: rgb(223, 237, 168);
+    
+        }
+    
+        th{
+            background-color:rgb(9, 180, 180);
+            color: black;
+        }
+        .form{
+        max-width: 85%;
+        margin: 10%;
+        padding: 40px;
+        text-align: center;
+        box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+        }
+       
+        </style>
+</head>
+<body>
+    <div id="BookingElementID">
+        <div class="form">
+              <div class="Header">
+                     <h3>INTERCITY VEHICLES LIMITED</h3>
+                     <P>Booked Vehicles are Here!</P>
+              </div>
+              <div>
+                     <table id="Bookingtable">
+                         <thead>
+                             <tr>
+                                  <th>Name</th>
+                                  <th>Email</th>
+                                  <th>VIN</th>
+                                  <th>Payment</th>
+                                  <th>Date</th>
+                             </tr>
+                         </thead>
+                         <tbody>
+                         </tbody>
+                     </table>   
+              </div>
+        </div>
+ 
+     </div>
+     <script src="AdminGet.js"></script>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicle Booking</title>
+    <style>
+    .Header{
+        text-align: center;
+        margin-bottom: 7%;
+        color: forestgreen;
+    } 
+    .form {
+    max-width: 30%;
+    margin: 0 auto 100px;
+    padding: 45px;
+    text-align: center;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+    }
+    .form input {
+        background: #f2f2f2;
+        width: 100%;
+        border: 0;
+        margin: 0 0 15px;
+        padding: 15px;
+        box-sizing: border-box;
+        font-size: 14px;
+        border-radius: 12px;
+        }
+    .form select{
+        background: #f2f2f2;
+        width: 100%;
+        border: 0;
+        margin: 0 0 15px;
+        padding: 15px;
+        box-sizing: border-box;
+        font-size: 14px;
+        border-radius: 12px;
+    }
+    .form button {
+    font-family: "Roboto", sans-serif;
+    text-transform: uppercase;
+    background-color:darkcyan;
+    width: 30%;
+    border-radius: 12px;
+    border: 0;
+    padding: 10px;
+    color: #FFFFFF;
+    font-size: 14px;
+    }
+    .error{
+    color: red;
+    }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form">
+            <div class = "Headers">
+                <h3>Book vehicle</h3>
+                <p>Please enter credentials to book vehicle</p>
+            </div>
+            <div class="infoform">
+            <form id="Bookingform">
+                <div class="form-group">
+                    <small id="Error" class="error"></small>
+                    <small id="usernameerror" class="error"></small>
+                    <input type="text" id="username" placeholder="Username">
+                </div>
+        
+                <div class="form-group">
+                    <small id="emailerror" class="error"></small>
+                    <input type="text" id="Email" placeholder="Email">
+                </div>
+                
+                <div class="form-group">
+                    <small id="VINerror" class="error"></small>
+                    <input type="text" id="VIN" placeholder="VIN">
+                </div>
+        
+                <div class="form-group">
+                    <select id="BookingType">
+                        <option value="Credit Card">Credit Card</option>
+                        <option value="Debit Card">Debit Card</option>
+                        <option value="UPI Payments">UPI Payments</option>
+                        <option value="Net Banking">Net Banking</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <small id="dateerror" class="error"></small>
+                    <input type="date" id="BookingDate" min="">
+                </div>
+                
+                <div class="form-submit">
+                   <button type="submit">Book</button>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+    <script src="UserIndex.js"></script>
+</body>
+</html>

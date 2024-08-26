@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AfterDiscountTable</title>
+    <style>
+        h3{
+            color: forestgreen;
+        }
+        table {
+        margin: 10px 0 10px 0;
+        width: 100%;
+    }
+    .Header{
+        padding: 10px;
+    }
+    table, th, td {
+        border-collapse: collapse;
+    }
+    
+    th, td {
+    padding: 12px;
+    } 
+
+    tr:nth-child(even){
+        background-color: rgb(232, 221, 213);
+
+    }
+    tr:nth-child(odd){
+        background-color: rgb(223, 237, 168);
+
+    }
+
+    th{
+        background-color:rgb(9, 180, 180);
+        color: black;
+    }
+    .form{
+            max-width: 100%;
+            margin:0 10% 0 10%;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+        }
+
+        a{
+        text-decoration: none;
+        text-align: center;
+        color: rgb(0, 0, 0);
+        font-size: 11px;
+        }
+        .Booking #button{
+            width: 15%;
+            margin: 10px 0 10px 0;
+            padding: 5px;
+            background-color:darkcyan ;
+            border: none;
+            border-radius: 12px;
+            font-size: 11px;
+            cursor: pointer;
+        }
+        .Booking a:hover{
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div id="AfterDiscount">
+        <div class="form">
+            <div class="Header">
+                <h3>INTERCITY VEHICLES LIMITED</h3>
+                <p>The table below shows the updated prices after applying the discount. Take advantage of this limited-time offer and book your vehicle today!</p>
+            </div>
+            <div class="table">
+                <table id="AfterDiscountId">
+                    <thead>
+                    <tr>
+                        <th>DiscountID</th>
+                        <th>DiscountPercent</th>
+                        <th>VIN</th>
+                        <th>DiscountPrice</th>
+                    </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            <div class="Booking">
+                <p>Click the link below to proceed with booking your vehicle at the discounted price.</p>
+                <button id="button"><a href="VehicleBooking.html">Book Vehicle</a></button>
+            </div>
+        </div>
+    </div>
+    <script src="IndexGet.js"></script>
+</body>
+</html>

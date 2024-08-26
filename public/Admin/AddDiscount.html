@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicle Discount</title>
+    <style>
+        .Header{
+            text-align: center;
+            margin-bottom: 7%;
+            color: forestgreen;
+        } 
+        .form {
+        max-width: 30%;
+        margin: 0 auto 100px;
+        padding: 45px;
+        text-align: center;
+        box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+        }
+        .form input {
+            background: #f2f2f2;
+            width: 100%;
+            border: 0;
+            margin: 0 0 15px;
+            padding: 15px;
+            box-sizing: border-box;
+            font-size: 14px;
+            }
+        .form select{
+            background: #f2f2f2;
+            width: 100%;
+            border: 0;
+            margin: 0 0 15px;
+            padding: 15px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+        .form button {
+        font-family: "Roboto", sans-serif;
+        text-transform: uppercase;
+        background-color: #FF0000;
+        width: 100%;
+        border: 0;
+        padding: 15px;
+        color: #FFFFFF;
+        font-size: 14px;
+        }
+        .error{
+        color: red;
+        }
+        </style>
+</head>
+<body>
+    <div class="Container">
+        <div class="form">
+            <div class="Headers">
+                <h3>ADD DISCOUNT</h3>
+                <p>Please Enter Credentials to Add Discount</p>
+            </div>
+            <div class="Discount">
+                <form id="DiscountformID">
+                    <div class="form-group">
+                        <small id="Error" class="error"></small>
+                        <small id="DisIDerror" class="error"></small>
+                        <input type="text" id="DiscountID" placeholder="DiscountID">
+                    </div>
+            
+                    <div class="form-group">
+                        <small id="DisPercenterror" class="error"></small>
+                        <input type="text" id="DisPercent" placeholder="DiscountPercent">
+                    </div>
+            
+                    <div class="form-group">
+                        <small id="VINerror" class="error"></small>
+                        <input type="text" id="VIN" placeholder="VIN">
+                    </div>
+                    
+                    <div class="form-group">
+                        <small id="Priceerror" class="error"></small>
+                        <input type="text" id="Price" placeholder="BookingPrice">
+                    </div>
+                    
+                    <div class="form-submit">
+                       <button type="submit">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="AdminIndex.js"></script>
+</body>
+</html>
