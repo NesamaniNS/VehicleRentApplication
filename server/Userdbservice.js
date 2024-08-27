@@ -73,7 +73,7 @@ class DbService {
     async AdminLogin(username,password){
             try {
                 const login = await new Promise((resolve, reject) => {
-                    const query ='SELECT * FROM Userreg WHERE Name = ? AND Password = ?';
+                    const query ='SELECT * FROM Admin WHERE Name = ? AND Password = ?';
 
                     connection.query(query,[username,password],(err,result) =>{
                         if(err) reject(new Error(err.message))
