@@ -9,13 +9,31 @@
             background-image: url("img.jpg");
             background-repeat: no-repeat;
             background-position-x: right;
-            width: 100%;
+            max-width: 100%;
             height: 100%;
         }
+        .Header{
+        max-width: 100%;
+        padding: 15px;
+        background-color: skyblue;
+        }
+        .Logout{
+        text-decoration: none;
+        color: black;
+        padding: 5px;
+        cursor: pointer;
+        float: right;
+        border: 1px solid blue;
+        border-radius: 12px;
+   
+    }
+    .Logout:hover{
+        background-color: white;
+    }
         ul{
     text-decoration: none;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
-    padding: 10%;
+    padding: 8%;
     margin-left: 6%;
     width: 200px;
     text-align: center;
@@ -33,15 +51,21 @@
    }
     </style>
 </head>
-<body>      
-    <h3>VEHICLE RENT MANAGEMENT SYSTEM</h3>
+<body> 
+    <div class="Container">
+    <div class="Header"> 
+        <a>VEHICLE RENT MANAGEMENT SYSTEM</a>       
+        <a href="index.html" class="Logout">Logout</a>    
+    </div>
+    <div class="Content-Body">
     <p>Welcome Admin.You Have all the Fields to Continue For Booking.</p>
-   <ul style="list-style-type: none;">
-    <li><a href="VehicleInsertion.html">VEHICLE INSERTION</a></li>
-    <li><a href="AddDiscount.html">ADD DISCOUNT</a></li>
-    <li><a href="ViewBooking.html">VIEW BOOKING</a></li>
-    <li><a href="ViewFeedback.html">VIEW FEEDBACK</a></li>
-   </ul>
-
+    <ul style="list-style-type: none;">
+        <li><a href="VehicleInsertion.html">VEHICLE INSERTION</a></li>
+        <li><a href="AddDiscount.html">ADD DISCOUNT</a></li>
+        <li><a href="ViewBooking.html">VIEW BOOKING</a></li>
+        <li><a href="ViewFeedback.html">VIEW FEEDBACK</a></li>
+     </ul>
+    </div>
+</div>
 </body>
 </html>

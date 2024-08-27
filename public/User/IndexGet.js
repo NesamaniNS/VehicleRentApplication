@@ -40,7 +40,7 @@ function VehicleGets(data){
     const table = document.querySelector('#Vehicle tbody');
 
     if (data.length === 0) {
-        table.VehicleGets = "<tr><td class='no-data' colspan='4'>No Data</td></tr>";
+        table.innerHTML = "<tr><td class='no-data' colspan='4'>No vehicle found!</td></tr>";
         return;
     }
 
@@ -64,7 +64,7 @@ function DiscountGets(data){
     const table = document.querySelector('#Discount tbody');
 
     if (data.length === 0) {
-        table.DiscountGets = "<tr><td class='no-data' colspan='4'>No Data</td></tr>";
+        table.innerHTML = "<tr><td class='no-data' colspan='4'>No discounts found!</td></tr>";
         return;
     }
 
@@ -88,7 +88,7 @@ function AfterDiscount(data){
     const table = document.querySelector('#AfterDiscount tbody');
 
     if (data.length === 0) {
-        table.DiscountGets = "<tr><td class='no-data' colspan='4'>No Data</td></tr>";
+        table.innerHTML = "<tr><td class='no-data' colspan='4'>No discount vehicles found!</td></tr>";
         return;
     }
 
@@ -112,7 +112,7 @@ function BookedVehicleGets(data){
     const table = document.querySelector('#Vehicle tbody');
 
     if (data.length === 0) {
-        table.VehicleGets = "<tr><td class='no-data' colspan='4'>No Data</td></tr>";
+        table.innerHTML = "<tr><td class='no-data' colspan='4'>No booked vehicles found!</td></tr>";
         return;
     }
 

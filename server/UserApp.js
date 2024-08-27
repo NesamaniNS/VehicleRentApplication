@@ -205,8 +205,13 @@ app.post('/VehicleInserts', (request, response) => {
    
     db.VehicleInsertion(VIN, VehicleName, Price, Availability)
     
-        .then(data => 
-            response.json({ data: data }))
+        .then(result => {
+            if(result && result.affectedRows >0){
+                  response.json({success : true})
+            }else{
+                  response.json({success :false})
+            }
+        })
         .catch(err => {
             console.error('Database Error:', err);
             response.status(500).json({ error: 'Internal Server Error' });
@@ -222,8 +227,13 @@ app.post('/DiscountInserts', (request, response) => {
    
     db.DiscountInsertion(DisID, DisPercent, VIN, Price)
     
-        .then(data => 
-            response.json({ data: data }))
+        .then(result => {
+            if(result && result.affectedRows >0){
+                response.json({success : true})
+            }else{
+                response.json({success :false})
+            }
+        })
         .catch(err => {
             console.error('Database Error:', err);
             response.status(500).json({ error: 'Internal Server Error' });

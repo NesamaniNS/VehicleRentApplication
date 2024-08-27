@@ -24,7 +24,7 @@ function BookingGets(data){
     const table = document.querySelector('#Bookingtable tbody');
 
     if(data.length === 0){
-        table.BookingGets = "<tr><td class='no-data' colspan='5'>No Data</td></tr>";
+        table.innerHTML = "<tr><td class='no-data' colspan='5'>No booked vehicles found!</td></tr>";
         return;
     }
 
@@ -48,7 +48,7 @@ function FeedbackGets(data){
     const table = document.querySelector('#Feedbacktable tbody');
 
     if(data.length === 0){
-        table.BookingGets = "<tr><td class='no-data' colspan='2'>No Data</td></tr>";
+        table.innerHTML = "<tr><td class='no-data' colspan='2'>No Feedbacks are found!</td></tr>";
         return;
     }
 

@@ -68,7 +68,7 @@ function AdminLogin(){
             document.getElementById('Error').textContent = 'Login successful';
             window.location.href="AdminDashboard.html";
         } else {
-            document.getElementById('Error').textContent = 'Login failed';
+            document.getElementById('Error').textContent = 'Invalid details';
         }
     })
     .catch(err => {
@@ -126,10 +126,18 @@ function VehicleInsertion(){
         })
     })
     .then(response => response.json())
-    .then(data => {
-        console.log('Success:', data);
-        document.getElementById('Error').textContent = 'Registration successful!';
+    .then(result => {
+        if(result.success){
+            document.getElementById('Error').textContent = 'Vehicle inserted successfully';
+            alert('Vehicle Inserted Sucessfully');
+            setTimeout(() => {
+                window.location.href = "AdminDashboard.html";
+            }, 1000);
+        }else{
+            document.getElementById('Error').textContent = 'Enter valid details';
+        }
     })
+
     .catch(err => {
         console.error('Error:', err);
         document.getElementById('Error').textContent = 'Registration failed. Please try again.';
@@ -184,9 +192,16 @@ function VehicleDiscount(){
         })
     })
     .then(response => response.json())
-    .then(data => {
-        console.log('Success:', data);
-        document.getElementById('Error').textContent = 'Registration successful!';
+    .then(result => {
+        if(result.success){
+            document.getElementById('Error').textContent = 'Discount added successfully';
+            alert('Discount Added Sucessfully');
+            setTimeout(() => {
+                window.location.href = "AdminDashboard.html";
+            }, 1000);
+        }else{
+            document.getElementById('Error').textContent = 'Enter valid details';
+        }
     })
     .catch(err => {
         console.error('Error:', err);

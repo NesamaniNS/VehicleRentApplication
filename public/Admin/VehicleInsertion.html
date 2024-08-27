@@ -5,56 +5,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vehicle Insertion</title>
     <style>
-        .Header{
-            text-align: center;
-            margin-bottom: 7%;
-            color: forestgreen;
-        } 
-        .form {
-        max-width: 30%;
-        margin: 0 auto 100px;
-        padding: 45px;
-        text-align: center;
-        box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
-        }
-        .form input {
-            background: #f2f2f2;
-            width: 100%;
-            border: 0;
-            margin: 0 0 15px;
-            padding: 15px;
-            box-sizing: border-box;
-            font-size: 14px;
-            }
-        .form select{
-            background: #f2f2f2;
-            width: 100%;
-            border: 0;
-            margin: 0 0 15px;
-            padding: 15px;
-            box-sizing: border-box;
-            font-size: 14px;
-        }
-        .form button {
-        text-transform: uppercase;
-        background-color: #FF0000;
+     
+.Container{
+    width: 360px;
+    margin: 0 0 100px 460px;
+}
+.form {
+    max-width: 250px;
+    padding: 5% 15%;
+    text-align: center;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+    }
+    .form input {
+        background: #f2f2f2;
         width: 100%;
         border: 0;
+        border-radius: 12px;
+        margin: 0 0 20px;
         padding: 15px;
-        color: #FFFFFF;
-        font-size: 14px;
+        box-sizing: border-box;
         }
-        .error{
-        color: red;
-        }
+    .form button {
+    background-color: darkcyan;
+    width: 30%;
+    border-radius: 12px;
+    border: 0;
+    padding: 10px;
+    color: white;
+    cursor: pointer;
+    }
+.error{
+    color: #ea1109; 
+    text-align: left;
+    font-size: 12px;
+    margin: -15px 0 5px 10px; 
+    display: block;
+    height: 15px;
+}
         </style>
 </head>
 <body>
     <div class="Container">
         <div class="form">
             <div class="Headers">
-                <h3>INSERT VEHICLE</h3>
-                <p>Please Enter Credentials to Insert Vehicle</p>
+                <h3>Insert vehicle</h3>
+                <p>Please enter eredentials to insert vehicle</p>
             </div>
             <div class="VehicleInsertion">
                 <form id="VehicleformID">
