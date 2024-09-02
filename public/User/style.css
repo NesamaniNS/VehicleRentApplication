@@ -30,6 +30,12 @@
     color: white;
     cursor: pointer;
     }
+    a:visited{
+          color: rgb(71, 181, 44);
+    }
+    a:hover{
+        color: #ea1109;
+    }
 .error{
     color: #ea1109; 
     text-align: left;

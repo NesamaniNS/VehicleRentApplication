@@ -90,12 +90,17 @@ function Registeruser(){
         })
     })
     .then(response => response.json())
-    .then(data => {
-        console.log('Success:', data);
+    .then(result => {
+        if(result.success){
+            console.log('Success:', result);
         alert('Registration Sucessfull,');
         setTimeout(() =>{
             window.location.href = 'UserLogin.html';
-        },1000);
+         },1000);
+        }else{
+              alert('Username or email is already exists! Please register with another email')
+              window.location.href = "UserRegistration.html"
+        }
     })
     .catch(err => {
         console.error('Error:', err);
