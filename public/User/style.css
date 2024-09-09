@@ -21,6 +21,9 @@
         padding: 15px;
         box-sizing: border-box;
         }
+        .form input :focus{
+            border: 2px solid blue;
+        }
     .form button {
     background-color: darkcyan;
     width: 30%;

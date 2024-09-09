@@ -108,7 +108,7 @@ class DbService {
         try {
             const Discount = await new Promise((resolve, reject) => {
 
-                const query = 'SELECT * FROM Discount';
+                const query = 'SELECT DiscountID,DiscountPercent,vehicle.VIN,vehicle.BookingPrice From Discount Left join vehicle ON Discount.VIN = vehicle.VIN where Availability = "Available"';
                 connection.query(query,(err,result) => {
                     if(err) reject(new Error(err.message));
                     console.log('Query result:', result);
@@ -143,7 +143,7 @@ class DbService {
         try {
             const Discount = await new Promise((resolve, reject) => {
 
-                const query = 'SELECT * FROM Discount ';
+                const query = 'SELECT DiscountID,DiscountPercent,vehicle.VIN,DiscountPrice From Discount Left join vehicle ON Discount.VIN = vehicle.VIN where Availability = "Available"';
                 connection.query(query,(err,result) => {
                     if(err) reject(new Error(err.message));
                     console.log('Query result:', result);
