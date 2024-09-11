@@ -176,10 +176,10 @@ app.post('/Booking', (request, response) => {
                 sender.sendMail(mailconfigurations,(err,info)=>{
                     if(err){
                         console.log('Error sending mail'+ err);
-                        return response.json({success: false, message: 'Booking successful, but failed to send confirmation email.'})
+                        return response.json({success: false})
                     }else{
                         console.log('Email Sent'+ info.response)
-                        return response.json({success: true ,message: 'Vehicle booked successfully and confirmation email sent.'})
+                        return response.json({success: true})
                     }
                 })
             } else {

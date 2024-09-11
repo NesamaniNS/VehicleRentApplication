@@ -64,7 +64,7 @@ function DiscountGets(data){
     const table = document.querySelector('#Discount tbody');
 
     if (data.length === 0) {
-        table.innerHTML = "<tr><td class='no-data' colspan='4'>No discounts found!</td></tr>";
+        table.innerHTML = "<tr><td class='no-data' colspan='4'>No discounts found! Enter available vehicle number to continue booking</td></tr>";
         return;
     }
 
@@ -88,7 +88,7 @@ function AfterDiscount(data){
     const table = document.querySelector('#AfterDiscount tbody');
 
     if (data.length === 0) {
-        table.innerHTML = "<tr><td class='no-data' colspan='4'>No discount vehicles found!</td></tr>";
+        table.innerHTML = "<tr><td class='no-data' colspan='4'>No discount vehicles found! Please note the vehicle number u want to book.</td></tr>";
         return;
     }
 

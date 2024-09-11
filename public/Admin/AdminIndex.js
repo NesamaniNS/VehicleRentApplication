@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded',function(){
         VehicleDiscount();
     })
    }
+
 })
 
 function AdminLogin(){
@@ -128,11 +129,20 @@ function VehicleInsertion(){
     .then(response => response.json())
     .then(result => {
         if(result.success){
-            document.getElementById('Error').textContent = 'Vehicle inserted successfully';
-            alert('Vehicle Inserted Sucessfully');
-            setTimeout(() => {
-                window.location.href = "AdminDashboard.html";
-            }, 1000);
+            let alertBox = document.getElementById("customAlertBox");
+            let alertMessage = document.getElementById("alertMessage");
+
+            alertMessage.innerHTML = 'Vehicle inserted sucessfully!'
+            alertBox.style.display = "block";
+
+            const closeTag = document.querySelector(".close");
+
+   if(closeTag){
+    document.addEventListener('click',function(){
+        document.getElementById("customAlertBox").style.display = "none";
+        window.location.href = "AdminDashboard.html";
+    })
+   }
         }else{
             document.getElementById('Error').textContent = 'Enter valid details';
         }
@@ -194,11 +204,20 @@ function VehicleDiscount(){
     .then(response => response.json())
     .then(result => {
         if(result.success){
-            document.getElementById('Error').textContent = 'Discount added successfully';
-            alert('Discount Added Sucessfully');
-            setTimeout(() => {
+          let alertBox = document.getElementById("customAlertBox");
+          let alertMessage = document.getElementById("alertMessage");
+          
+          alertMessage.innerHTML = 'Discount Added Sucessfully. Thankyou!.';
+          alertBox.style.display = "block";
+
+          const closeTag = document.querySelector(".close");
+          if(closeTag){
+            document.addEventListener('click',function(){
+                alertBox.style.display = "none";
                 window.location.href = "AdminDashboard.html";
-            }, 1000);
+            })
+          }
+
         }else{
             document.getElementById('Error').textContent = 'Enter valid details';
         }

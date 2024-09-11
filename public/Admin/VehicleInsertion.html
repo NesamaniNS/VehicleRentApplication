@@ -42,7 +42,36 @@
     display: block;
     height: 15px;
 }
-        </style>
+.custom-alert{
+   display: none;
+   position: fixed;
+   width: 100%;
+   height: 100%;
+   top: 0;
+   left: 0;
+   background-color: rgba(0, 0, 0, 0.4);
+}
+.custom-alert-content{
+    background-color: white;
+    border: 1px solid #888;
+    padding: 25px;
+    max-width: 400px;
+    border-radius: 8px;
+    margin-top: 150px;
+    margin-left: 420px;
+}
+.close{
+    float: right;
+    font-weight: bold;
+    font-size: 20px;
+    color: #211e1e;
+}
+.close:hover,
+.close:focus{
+    color: #ee0505;
+    cursor: pointer;
+}
+</style>
 </head>
 <body>
     <div class="Container">
@@ -56,7 +85,7 @@
                     <div class="form-group">
                         <small id="Error" class="error"></small>
                         <small id="VINerror" class="error"></small>
-                        <input type="text" id="VIN" placeholder="VIN" minlength="4">
+                        <input type="text" id="VIN" placeholder="VIN" minlength="4" maxlength="12">
                     </div>
             
                     <div class="form-group">
@@ -73,13 +102,16 @@
                         <small id="Availabilityerror" class="error"></small>
                         <input type="text" id="Availability" placeholder="Availability">
                     </div>
-                    
-                    <div class="form-submit">
                        <button type="submit">Submit</button>
-                    </div>
                 </form>
             </div>
         </div>
+        <div id="customAlertBox" class="custom-alert">
+            <div class="custom-alert-content">
+                <span class="close">&times;</span>
+                <p id="alertMessage"></p>
+            </div>
+       </div>
     </div>
     <script src="AdminIndex.js"></script>
 </body>

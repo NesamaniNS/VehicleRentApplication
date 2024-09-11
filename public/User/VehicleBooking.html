@@ -51,7 +51,36 @@
     .error{
     color: red;
     }
-    </style>
+    .custom-alert{
+   display: none;
+   position: fixed;
+   width: 100%;
+   height: 100%;
+   top: 0;
+   left: 0;
+   background-color: rgba(0, 0, 0, 0.4);
+}
+.custom-alert-content{
+    background-color: white;
+    border: 1px solid #888;
+    padding: 25px;
+    max-width: 400px;
+    border-radius: 8px;
+    margin-top: 150px;
+    margin-left: 420px;
+}
+.close{
+    float: right;
+    font-weight: bold;
+    font-size: 20px;
+    color: #211e1e;
+}
+.close:hover,
+.close:focus{
+    color: #ee0505;
+    cursor: pointer;
+}
+</style>
 </head>
 <body>
     <div class="container">
@@ -93,11 +122,17 @@
                 </div>
                 
                 <div class="form-submit">
-                   <button type="submit">Book</button>
+                   <button type="submit" id="bookBtn">Book</button>
                 </div>
             </form>
             </div>
         </div>
+        <div id="customAlertBox" class="custom-alert">
+            <div class="custom-alert-content">
+                <span class="close">&times;</span>
+                <p id="alertMessage"></p>
+            </div>
+       </div>
     </div>
     <script src="UserIndex.js"></script>
 </body>

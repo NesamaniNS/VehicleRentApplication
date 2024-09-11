@@ -73,3 +73,14 @@
 #alertMessage {
     color: #45a049;
 }
+.close{
+    float: right;
+    font-weight: bold;
+    font-size: 20px;
+    color: #211e1e;
+}
+.close:hover,
+.close:focus{
+    color: #ee0505;
+    cursor: pointer;
+}

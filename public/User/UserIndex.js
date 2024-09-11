@@ -259,11 +259,21 @@ function BookingVehicle(){
         .then(response => response.json())
         .then(result => {
             if(result.success){
-                alert('Vehicle Booked Successfully');
-                setTimeout(()=>{
-                    window.location.href="UserDashboard.html";
-                },2000);
-                document.getElementById('Error').textContent ='Vehicle Booked Sucessfully';
+                let alertBox = document.getElementById("customAlertBox");
+                let alertMessage = document.getElementById("alertMessage");
+    
+                alertMessage.innerHTML = 'Vehicle inserted sucessfully!'
+                alertBox.style.display = "block";
+    
+                const closeTag = document.querySelector(".close");
+    
+       if(closeTag){
+        document.addEventListener('click',function(){
+            document.getElementById("customAlertBox").style.display = "none";
+            window.location.href = "UserDashboard.html";
+
+        })
+       }
             }else{
                 document.getElementById('Error').textContent ='Booking Failed';
             }
@@ -272,7 +282,6 @@ function BookingVehicle(){
             console.error('Error:', err);
             document.getElementById('usernameerror').textContent = 'Registration failed. Please try again.';
         });
-
         return valid;
     }
 }
@@ -313,7 +322,20 @@ function FeedBackVehicle(){
     .then(response => response.json())
     .then(result => {
         if (result.success) {
-            document.getElementById('Error').textContent = 'Feedback successful';
+            let alertBox = document.getElementById("customAlertBox");
+            let alertMessage = document.getElementById("alertMessage");
+
+            alertMessage.innerHTML = 'Vehicle inserted sucessfully!'
+            alertBox.style.display = "block";
+
+            const closeTag = document.querySelector(".close");
+
+   if(closeTag){
+    document.addEventListener('click',function(){
+        document.getElementById("customAlertBox").style.display = "none";
+        window.location.href = "UserDashboard.html";
+    })
+   }
             
         } else {
             document.getElementById('Error').textContent = 'Failed Try Again';
