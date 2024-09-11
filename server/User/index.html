@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content=
+"width=device-width, initial-scale=1.0">
+    <title>Custom Alert Box</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>
+            Welcome to GeeksforGeeks Custom Alerts
+        </h1>
+        <p>
+            This is a simple example of a custom alert 
+            box using HTML, CSS, and JavaScript.
+        </p>
+        <p>
+            Click the button below to trigger the custom alert.
+        </p>
+        <button class="custom-button">
+            Show Alert
+        </button>
+    </div>
+
+    <div id="customAlertBox" class="custom-alert">
+        <div class="custom-alert-content">
+            <span class="close">&times;</span>
+            <p id="alertMessage"></p>
+        </div>
+    </div>
+
+    <script>
+        let alertBox =
+            document.getElementById("customAlertBox");
+        let alert_Message_container =
+            document.getElementById("alertMessage");
+        let custom_button =
+            document.querySelector(".custom-button");
+        let close_img =
+            document.querySelector(".close");
+
+        custom_button.addEventListener
+            ('click', function () {
+                alert_Message_container.innerHTML =
+                    "You clicked the button";
+                alertBox.style.display = "block";
+            });
+
+        close_img.addEventListener
+            ('click', function () {
+                alertBox.style.display = "none";
+            });
+
+    </script>
+</body>
+
+</html>

@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded',function(){
                         event.preventDefault();
                         FeedBackVehicle();
                     })
-                }  
+                }             
 })
 
 function Registeruser(){
@@ -93,10 +93,16 @@ function Registeruser(){
     .then(result => {
         if(result.success){
             console.log('Success:', result);
-        alert('Registration Sucessfull,');
+
+            let alertBox = document.getElementById("customAlertBox");
+            let alertMessage = document.getElementById("alertMessage");
+
+            alertMessage.innerHTML = "Registration successfull! Please wait the page will redirect to login page.";
+            alertBox.style.display = "block";
+
         setTimeout(() =>{
             window.location.href = 'UserLogin.html';
-         },1000);
+         },3000);
         }else{
               alert('Username or email is already exists! Please register with another email')
               window.location.href = "UserRegistration.html"
