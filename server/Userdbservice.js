@@ -35,7 +35,6 @@ class DbService {
                 
                 const query1 = "INSERT INTO UserReg (Name, Password, Email, City, ContactNumber) VALUES (?, ?, ?, ?, ?)";
             
-    
                     connection.query(query1, [Name, Password, Email, City, ContactNumber], (err, result) => {
                        
                         if(err) reject(new Error(err.message));

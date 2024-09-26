@@ -143,6 +143,7 @@ function VehicleInsertion(){
         window.location.href = "AdminDashboard.html";
     })
    }
+   
         }else{
             document.getElementById('Error').textContent = 'Enter valid details';
         }

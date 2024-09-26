@@ -6,7 +6,6 @@ dotenv.config();
 const nodemailer = require('nodemailer');
 
 const dbService = require('./Userdbservice');
-const dummy = null;
 
 app.use(cors());
 app.use(express.json());
@@ -16,12 +15,9 @@ app.post('/registers', (request, response) => {
     console.log("inside /registers endpoint");
 
     const { Name, Password, Email, City, ContactNumber } = request.body; 
-
     console.log('input'+Name, Password, Email, City, ContactNumber);
     const db = dbService.getDbServiceInstance(); 
-
     db.userRegistration(Name, Password, Email, City, ContactNumber)
-
     .then(result => {
         console.log('result'+result.affectedRows)
         if(result && result.affectedRows >0){
