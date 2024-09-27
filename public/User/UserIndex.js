@@ -262,7 +262,7 @@ function BookingVehicle(){
                 let alertBox = document.getElementById("customAlertBox");
                 let alertMessage = document.getElementById("alertMessage");
     
-                alertMessage.innerHTML = 'Vehicle inserted sucessfully!'
+                alertMessage.innerHTML = 'Vehicle Booked sucessfully! Email sent to Registered Email Address,Thankyou.'
                 alertBox.style.display = "block";
     
                 const closeTag = document.querySelector(".close");
@@ -325,7 +325,7 @@ function FeedBackVehicle(){
             let alertBox = document.getElementById("customAlertBox");
             let alertMessage = document.getElementById("alertMessage");
 
-            alertMessage.innerHTML = 'Vehicle inserted sucessfully!'
+            alertMessage.innerHTML = 'Feedback inserted sucessfully!'
             alertBox.style.display = "block";
 
             const closeTag = document.querySelector(".close");

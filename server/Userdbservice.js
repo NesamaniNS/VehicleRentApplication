@@ -294,19 +294,19 @@ async UserBookedVehicle(){
 
 async VehicleFeedback(){
     try {
-        const vehicle = await new Promise((resolve, reject) => {
-            
+        const Feedback = await new Promise((resolve, reject) => {      
             const query = 'SELECT * FROM Feedback';
             connection.query(query,(err,result) =>{
                 if(err) reject(new Error(err.message));
                     resolve(result);
             })
         })
-        return vehicle;
+        return Feedback;
     } catch (error) {
         console.log(error)
     }
 }
+
 }
 
 

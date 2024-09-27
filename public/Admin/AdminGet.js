@@ -54,13 +54,12 @@ function FeedbackGets(data){
 
     let tableHtml ='';
 
-    for(let i=0;i< data.length;i++){
-        let{Username,Feedback} = data[i];
-
+    data.forEach(function({Name,Feedback}){
         tableHtml += "<tr>";
-        tableHtml += `<td>${Username}</td>`;
+        tableHtml += `<td>${Name}</td>`;
         tableHtml += `<td>${Feedback}</td>`;
         tableHtml += "</tr>";
-    }
+    })
+
     table.innerHTML = tableHtml;
 }
