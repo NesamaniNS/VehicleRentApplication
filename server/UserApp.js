@@ -282,11 +282,8 @@ app.get('/BookingGets',(request,response) =>{
 });
 
 app.get('/FeedbackGets',(request,response) =>{
-
     console.log('Inside vehicle');
-
     const db = dbService.getDbServiceInstance();
-
     const result = db.VehicleFeedback();
     console.log('resluts:',result);
     result
