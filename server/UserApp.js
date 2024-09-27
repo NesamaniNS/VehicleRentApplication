@@ -3,6 +3,7 @@ const app = express();
 const cors = require('cors');
 const dotenv = require('dotenv');
 dotenv.config();
+const nodemailer = require('nodemailer');
 
 const dbService = require('./Userdbservice');
 
@@ -14,13 +15,17 @@ app.post('/registers', (request, response) => {
     console.log("inside /registers endpoint");
 
     const { Name, Password, Email, City, ContactNumber } = request.body; 
-
+    console.log('input'+Name, Password, Email, City, ContactNumber);
     const db = dbService.getDbServiceInstance(); 
-
     db.userRegistration(Name, Password, Email, City, ContactNumber)
-    
-        .then(data => 
-            response.json({ data: data }))
+    .then(result => {
+        console.log('result'+result.affectedRows)
+        if(result && result.affectedRows >0){
+              response.json({success : true})
+        }else{
+              response.json({success :false})
+        }
+    })
         .catch(err => {
             console.error('Database Error:', err);
             response.status(500).json({ error: 'Internal Server Error' });
@@ -148,7 +153,31 @@ app.post('/Booking', (request, response) => {
             console.log('Query result:', result);
             if (result.affectedRows > 0) { 
                 db.UpdateVehicle(VIN);
-                response.json({ success: true });
+
+                const sender = nodemailer.createTransport({
+                    service:'gmail',
+                    auth:{
+                        user:process.env.EMAIL,
+                        pass:process.env.EMAILPASSWORD
+                    }
+                })
+
+                const mailconfigurations = {
+                    from: process.env.EMAIL,
+                    to: Email,
+                    subject: 'Vehicle Booking Confirmation',
+                    text: `Dear ${UserName},\n\nYour vehicle with VIN ${VIN} has been successfully booked for ${Date}.\n\nPayment Method: ${Payment}\n\nThank you for choosing our service!\n\nBest Regards,\nIntercity Vehicles Limited`
+                }
+
+                sender.sendMail(mailconfigurations,(err,info)=>{
+                    if(err){
+                        console.log('Error sending mail'+ err);
+                        return response.json({success: false})
+                    }else{
+                        console.log('Email Sent'+ info.response)
+                        return response.json({success: true})
+                    }
+                })
             } else {
                 response.json({ success: false });
             }
@@ -204,8 +233,13 @@ app.post('/VehicleInserts', (request, response) => {
    
     db.VehicleInsertion(VIN, VehicleName, Price, Availability)
     
-        .then(data => 
-            response.json({ data: data }))
+        .then(result => {
+            if(result && result.affectedRows >0){
+                  response.json({success : true})
+            }else{
+                  response.json({success :false})
+            }
+        })
         .catch(err => {
             console.error('Database Error:', err);
             response.status(500).json({ error: 'Internal Server Error' });
@@ -221,8 +255,13 @@ app.post('/DiscountInserts', (request, response) => {
    
     db.DiscountInsertion(DisID, DisPercent, VIN, Price)
     
-        .then(data => 
-            response.json({ data: data }))
+        .then(result => {
+            if(result && result.affectedRows >0){
+                response.json({success : true})
+            }else{
+                response.json({success :false})
+            }
+        })
         .catch(err => {
             console.error('Database Error:', err);
             response.status(500).json({ error: 'Internal Server Error' });

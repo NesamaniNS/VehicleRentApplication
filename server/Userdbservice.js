@@ -35,7 +35,6 @@ class DbService {
                 
                 const query1 = "INSERT INTO UserReg (Name, Password, Email, City, ContactNumber) VALUES (?, ?, ?, ?, ?)";
             
-    
                     connection.query(query1, [Name, Password, Email, City, ContactNumber], (err, result) => {
                        
                         if(err) reject(new Error(err.message));
@@ -73,7 +72,7 @@ class DbService {
     async AdminLogin(username,password){
             try {
                 const login = await new Promise((resolve, reject) => {
-                    const query ='SELECT * FROM Userreg WHERE Name = ? AND Password = ?';
+                    const query ='SELECT * FROM Admin WHERE Name = ? AND Password = ?';
 
                     connection.query(query,[username,password],(err,result) =>{
                         if(err) reject(new Error(err.message))
@@ -108,7 +107,7 @@ class DbService {
         try {
             const Discount = await new Promise((resolve, reject) => {
 
-                const query = 'SELECT * FROM Discount';
+                const query = 'SELECT DiscountID,DiscountPercent,vehicle.VIN,vehicle.BookingPrice From Discount Left join vehicle ON Discount.VIN = vehicle.VIN where Availability = "Available"';
                 connection.query(query,(err,result) => {
                     if(err) reject(new Error(err.message));
                     console.log('Query result:', result);
@@ -143,7 +142,7 @@ class DbService {
         try {
             const Discount = await new Promise((resolve, reject) => {
 
-                const query = 'SELECT * FROM Discount ';
+                const query = 'SELECT DiscountID,DiscountPercent,vehicle.VIN,DiscountPrice From Discount Left join vehicle ON Discount.VIN = vehicle.VIN where Availability = "Available"';
                 connection.query(query,(err,result) => {
                     if(err) reject(new Error(err.message));
                     console.log('Query result:', result);
@@ -295,19 +294,19 @@ async UserBookedVehicle(){
 
 async VehicleFeedback(){
     try {
-        const vehicle = await new Promise((resolve, reject) => {
-            
+        const Feedback = await new Promise((resolve, reject) => {      
             const query = 'SELECT * FROM Feedback';
             connection.query(query,(err,result) =>{
                 if(err) reject(new Error(err.message));
                     resolve(result);
             })
         })
-        return vehicle;
+        return Feedback;
     } catch (error) {
         console.log(error)
     }
 }
+
 }
 
 

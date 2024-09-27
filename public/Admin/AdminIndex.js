@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded',function(){
         VehicleDiscount();
     })
    }
+
 })
 
 function AdminLogin(){
@@ -68,7 +69,7 @@ function AdminLogin(){
             document.getElementById('Error').textContent = 'Login successful';
             window.location.href="AdminDashboard.html";
         } else {
-            document.getElementById('Error').textContent = 'Login failed';
+            document.getElementById('Error').textContent = 'Invalid details';
         }
     })
     .catch(err => {
@@ -126,10 +127,28 @@ function VehicleInsertion(){
         })
     })
     .then(response => response.json())
-    .then(data => {
-        console.log('Success:', data);
-        document.getElementById('Error').textContent = 'Registration successful!';
+    .then(result => {
+        if(result.success){
+            let alertBox = document.getElementById("customAlertBox");
+            let alertMessage = document.getElementById("alertMessage");
+
+            alertMessage.innerHTML = 'Vehicle inserted sucessfully!'
+            alertBox.style.display = "block";
+
+            const closeTag = document.querySelector(".close");
+
+   if(closeTag){
+    document.addEventListener('click',function(){
+        document.getElementById("customAlertBox").style.display = "none";
+        window.location.href = "AdminDashboard.html";
     })
+   }
+   
+        }else{
+            document.getElementById('Error').textContent = 'Enter valid details';
+        }
+    })
+
     .catch(err => {
         console.error('Error:', err);
         document.getElementById('Error').textContent = 'Registration failed. Please try again.';
@@ -184,9 +203,25 @@ function VehicleDiscount(){
         })
     })
     .then(response => response.json())
-    .then(data => {
-        console.log('Success:', data);
-        document.getElementById('Error').textContent = 'Registration successful!';
+    .then(result => {
+        if(result.success){
+          let alertBox = document.getElementById("customAlertBox");
+          let alertMessage = document.getElementById("alertMessage");
+          
+          alertMessage.innerHTML = 'Discount Added Sucessfully. Thankyou!.';
+          alertBox.style.display = "block";
+
+          const closeTag = document.querySelector(".close");
+          if(closeTag){
+            document.addEventListener('click',function(){
+                alertBox.style.display = "none";
+                window.location.href = "AdminDashboard.html";
+            })
+          }
+
+        }else{
+            document.getElementById('Error').textContent = 'Enter valid details';
+        }
     })
     .catch(err => {
         console.error('Error:', err);

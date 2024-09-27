@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded',function(){
                         event.preventDefault();
                         FeedBackVehicle();
                     })
-                }  
+                }             
 })
 
 function Registeruser(){
@@ -90,12 +90,23 @@ function Registeruser(){
         })
     })
     .then(response => response.json())
-    .then(data => {
-        console.log('Success:', data);
-        alert('Registration Sucessfull,');
+    .then(result => {
+        if(result.success){
+            console.log('Success:', result);
+
+            let alertBox = document.getElementById("customAlertBox");
+            let alertMessage = document.getElementById("alertMessage");
+
+            alertMessage.innerHTML = "Registration successfull! Please wait the page will redirect to login page.";
+            alertBox.style.display = "block";
+
         setTimeout(() =>{
             window.location.href = 'UserLogin.html';
-        },1000);
+         },3000);
+        }else{
+              alert('Username or email is already exists! Please register with another email')
+              window.location.href = "UserRegistration.html"
+        }
     })
     .catch(err => {
         console.error('Error:', err);
@@ -248,11 +259,21 @@ function BookingVehicle(){
         .then(response => response.json())
         .then(result => {
             if(result.success){
-                alert('Vehicle Booked Successfully');
-                setTimeout(()=>{
-                    window.location.href="UserDashboard.html";
-                },2000);
-                document.getElementById('Error').textContent ='Vehicle Booked Sucessfully';
+                let alertBox = document.getElementById("customAlertBox");
+                let alertMessage = document.getElementById("alertMessage");
+    
+                alertMessage.innerHTML = 'Vehicle Booked sucessfully! Email sent to Registered Email Address,Thankyou.'
+                alertBox.style.display = "block";
+    
+                const closeTag = document.querySelector(".close");
+    
+       if(closeTag){
+        document.addEventListener('click',function(){
+            document.getElementById("customAlertBox").style.display = "none";
+            window.location.href = "UserDashboard.html";
+
+        })
+       }
             }else{
                 document.getElementById('Error').textContent ='Booking Failed';
             }
@@ -261,7 +282,6 @@ function BookingVehicle(){
             console.error('Error:', err);
             document.getElementById('usernameerror').textContent = 'Registration failed. Please try again.';
         });
-
         return valid;
     }
 }
@@ -302,7 +322,20 @@ function FeedBackVehicle(){
     .then(response => response.json())
     .then(result => {
         if (result.success) {
-            document.getElementById('Error').textContent = 'Feedback successful';
+            let alertBox = document.getElementById("customAlertBox");
+            let alertMessage = document.getElementById("alertMessage");
+
+            alertMessage.innerHTML = 'Feedback inserted sucessfully!'
+            alertBox.style.display = "block";
+
+            const closeTag = document.querySelector(".close");
+
+   if(closeTag){
+    document.addEventListener('click',function(){
+        document.getElementById("customAlertBox").style.display = "none";
+        window.location.href = "UserDashboard.html";
+    })
+   }
             
         } else {
             document.getElementById('Error').textContent = 'Failed Try Again';
