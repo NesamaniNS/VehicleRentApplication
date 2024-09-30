@@ -42,9 +42,9 @@ app.post('/userlogin',(request, response) => {
     db.UserLogin(username, password)
     
     .then(result => {
-        console.log('Login Result:', result);
         if (result && result.length > 0) {
-            response.json({ success: true });
+            console.log('Login Result:',result);
+            response.json({ success: true});
         } else {
             response.json({ success: false });
         }

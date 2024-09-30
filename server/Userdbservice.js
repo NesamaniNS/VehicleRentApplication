@@ -61,6 +61,7 @@ class DbService {
                     if(err) reject(new Error(err.message));
 
                         resolve(result);
+        
                 })
             })
             return login;

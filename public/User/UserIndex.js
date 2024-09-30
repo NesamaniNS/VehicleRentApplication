@@ -15,6 +15,22 @@ document.addEventListener('DOMContentLoaded',function(){
                         UserLogin();
                     })
                }
+    const username = localStorage.getItem('username');
+    const welcomeuser = document.getElementById('welcomeuser');
+
+    if (username && welcomeuser) {
+        welcomeuser.textContent = `Welcome ${username}. You have all the fields to continue for booking.`;
+    } else {
+        welcomeuser.textContent = 'Welcome! You have all the fields to continue for booking.';
+    }
+
+    const logout = document.getElementById('Logout');
+               if(logout){
+                logout.addEventListener('click',function(){
+                    localStorage.removeItem('username');
+                    window.location.href = '../index.html';
+                })
+               }
 
     const Discount = document.getElementById('DiscountForm');
                if(Discount){
@@ -43,7 +59,7 @@ document.addEventListener('DOMContentLoaded',function(){
 })
 
 function Registeruser(){
-
+  document.getElementById('Error').textContent = '';
   document.getElementById('usernameerror').textContent='';
   document.getElementById('passworderror').textContent='';
   document.getElementById('Emailerror').textContent='';
@@ -56,22 +72,35 @@ function Registeruser(){
   const City= document.getElementById('city').value;
   const ContactNumber= document.getElementById('contactnumber').value;
 
-  let valid = true;
+  const passwordPattern = /^(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
+  const contactPattern = /^[6-9]\d{9}$/;
 
+  let valid = true;
+  
    if(UserName === ''){
     document.getElementById('usernameerror').textContent='Username is required';
     valid = false;
-   }else if(Password === ''){
+   }
+   if(Password === ''){
     document.getElementById('passworderror').textContent='Password is required';
     valid = false;
-   }else if(Email === ''){
+   }else if(!passwordPattern.test(Password)){
+    document.getElementById('passworderror').textContent = 'Password must be at least 8 characters, include a number, and a special character';
+    valid = false;
+   }
+   if(Email === ''){
     document.getElementById('Emailerror').textContent='Email is required';
     valid = false;
-   }else if(City === ''){
+   }
+   if(City === ''){
     document.getElementById('cityerror').textContent='City is required';
     valid = false;
-   }else if(ContactNumber === ''){
+   }
+   if(ContactNumber === ''){
     document.getElementById('contacterror').textContent='Contactnumber is required';
+    valid = false;
+   }else if(!contactPattern.test(ContactNumber)){
+    document.getElementById('contacterror').textContent='Enter a valid 10-digit Indian phone number';
     valid = false;
    }
    if (valid) {
@@ -104,8 +133,7 @@ function Registeruser(){
             window.location.href = 'UserLogin.html';
          },3000);
         }else{
-              alert('Username or email is already exists! Please register with another email')
-              window.location.href = "UserRegistration.html"
+              document.getElementById('Error').textContent = "Username or email is already exists!";
         }
     })
     .catch(err => {
@@ -122,18 +150,14 @@ function UserLogin(){
     document.getElementById('Error').textContent='';
   
     const password = document.getElementById('password').value;
-    const _password = document.getElementById('password');
     const username = document.getElementById('username').value;
-   console.log('username', _password.placeholder)
+
     let valid = true;
-    if(username === '' && password === ''){
-        document.getElementById('Error').textContent = 'All fields are required';
-        valid = false;
-    }
-    else if (username === '') {
+    if (username === '') {
         document.getElementById('usernameError').textContent = 'Username is required';
         valid = false;
-    }else if(password === '') {
+    }
+    if(password === '') {
         document.getElementById('passwordError').textContent = 'Password is required';
         valid = false;
     }
@@ -153,7 +177,7 @@ function UserLogin(){
     .then(response => response.json())
     .then(result => {
         if (result.success) {
-            document.getElementById('Error').textContent = 'Login successful';
+            localStorage.setItem('username',username);
             window.location.href="UserDashboard.html";
         } else {
             document.getElementById('Error').textContent = 'Username or Password is Incorrect';

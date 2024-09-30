@@ -20,25 +20,25 @@
     <form id=registerform class="RegisterForm">
     
         <div class="form-group">
-             <small id="Error" class="error"></small>
-             <input type="text" id="username" placeholder="username" minlength="6" maxlength="20" >
-             <small id="usernameerror" class="error"></small>
+             <div class="error"><small class="errors" id="Error"></small></div>
+             <input type="text" class="form-group" id="username" placeholder="username" minlength="6" maxlength="20" >
+             <div class="error"><small class="errors" id="usernameerror"></small></div>
         </div>
         <div class="form-group">
-             <input type="password" id="password" placeholder="Password" minlength="8" maxlength="20">
-             <small id="passworderror" class="error"></small>
+             <input type="text" class="form-group" id="password" placeholder="Password" maxlength="20">
+             <div class="error"><small class="errors" id="passworderror"></small></div>
         </div>
         <div class="form-group">
-             <input type="email" id="email" placeholder="Email">
-             <small id="Emailerror" class="error"></small>
+             <input type="email" class="form-group" id="email" placeholder="Email">
+             <div class="error"><small class="errors" id="Emailerror"></small></div>
         </div>
         <div class="form-group">
-             <input type="text" id="city" placeholder="City" minlength="3">
-             <small id="cityerror" class="error"></small>
+             <input type="text" class="form-group" id="city" placeholder="City" minlength="3">
+             <div class="error"><small class="errors" id="cityerror"></small></div>
         </div>
         <div class="form-group">
-              <input type="text" id="contactnumber" placeholder="Contact Number" minlength="10" maxlength="10">
-              <small id="contacterror" class="error"></small>
+              <input type="text" class="form-group" id="contactnumber" placeholder="Contact Number">
+              <div class="error"><small class="errors" id="contacterror"></small></div>
         </div>
         <button type="submit">Register</button>
 
