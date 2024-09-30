@@ -16,12 +16,12 @@ document.addEventListener('DOMContentLoaded',function(){
                     })
                }
     const username = localStorage.getItem('username');
-    const welcomeuser = document.getElementById('welcomeuser');
+    const welcomeuser = document.getElementById('usernameDisplay');
 
     if (username && welcomeuser) {
-        welcomeuser.textContent = `Welcome ${username}. You have all the fields to continue for booking.`;
+        welcomeuser.textContent = username;
     } else {
-        welcomeuser.textContent = 'Welcome! You have all the fields to continue for booking.';
+        welcomeuser.textContent = '';
     }
 
     const logout = document.getElementById('Logout');

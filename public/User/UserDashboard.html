@@ -50,6 +50,11 @@
    .Content-Body li a:hover{
     background-color: rgb(122, 221, 249);
    }
+   #usernameDisplay {
+    font-weight: bold;        
+    color: #101010;      
+    font-size: 1.1em;      
+   }
     </style>
 </head>
 <body>    
@@ -59,7 +64,7 @@
             <a class="Logout" id="Logout">Logout</a>    
         </div>
         <div class="Content-Body">
-            <p id="welcomeuser">Welcome user.You Have all the Fields to Continue For Booking.</p>
+            <p id="welcomeuser">Welcome <span id="usernameDisplay"></span>.You Have all the Fields to Continue For Booking.</p>
            <ul style="list-style-type: none;">
             <li><a href="Vehicle_Search.html">SEARCH VEHICLE </a></li>
             <li><a href="BookedVehicle.html">BOOKED VEHICLE</a></li>
