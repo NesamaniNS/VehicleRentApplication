@@ -15,14 +15,16 @@
     text-align: center;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
     }
+    .form-group{
+    display: flex;
+    flex-direction: column;
+    margin: 0 0 3px;
+    }
     .form input {
-        background: #f2f2f2;
-        width: 100%;
-        border: 0;
-        border-radius: 12px;
-        margin: 0 0 20px;
-        padding: 15px;
-        box-sizing: border-box;
+    background: #f2f2f2;
+    border: 0;
+    border-radius: 12px;
+    padding: 15px;
         }
     .form button {
     background-color: darkcyan;
@@ -33,13 +35,22 @@
     color: white;
     cursor: pointer;
     }
+        
+.form input.error-border {
+    border: 1.5px solid #ea7b78; 
+}
 .error{
     color: #ea1109; 
+    font-size: 14px;
     text-align: left;
+    margin-left: 10px;
+    }
+.errors{
+    margin-right: 12px; 
+}
+#Error{
+    margin-left: 45px;
     font-size: 12px;
-    margin: -15px 0 5px 10px; 
-    display: block;
-    height: 15px;
 }
 .marginerror{
     color: #ea1109;
@@ -54,32 +65,27 @@ a:hover{
     </style>
 </head>
 <body>
-
-    <div class="Container">
-        <div class="form">
-
+<div class="Container">
+    <div class="form">
       <div class="login">
             <h3>Login</h3>
             <p>Please enter your credentials to login.</p> 
       </div>
-       <div class="small">
-        <form id="loginForm" >
-            
+        <form id="loginForm" class="LoginForm">       
             <div class="form-group">
-                <small id="Error" class="marginerror"></small>
-                <input type="text" id="username" placeholder="username" minlength="6" maxlength="20">
-                <small id="usernameError" class="error"></small>
+                <div class="error"><small id="Error" class="marginerror"></small></div>
+                <input type="text" id="username" placeholder="username">
+                <div class="error"><small id="usernameError" class="errors"></small></div>
             </div>
             <div class="form-group">
-                <input type="password" id="password" placeholder="password" minlength="8" maxlength="20">
-                <small id="passwordError" class="error"></small>
+                <input type="password" id="password" placeholder="password">
+                <div class="error"><small id="passwordError" class="errors"></small></div>
             </div>
             <button type="submit">Login</button>
             <p>Not registered? <small><a href="UserRegistration.html">Create an account</a></small></p>
         </form>
     </div>
-    </div>
-    </div>
+</div>
     <script src="UserIndex.js"></script>
 </body>
 </html>

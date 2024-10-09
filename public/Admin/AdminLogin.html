@@ -7,25 +7,21 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-    <div class="login_page">
-        <div class="form">
-
+<div class="login_page">
+    <div class="form">
       <div class="login">
             <h3>LOGIN</h3>
             <p>Please enter your credentials to login.</p> 
       </div>
-
         <form id="loginForm" >
-            
             <div class="form-group">
-                <small id="Error" class="error"></small>
-                <small id="usernameError" class="error"></small>
-                <input type="text" id="username" placeholder="username" minlength="6" maxlength="20">
+                <div class="error"><small id="Error" class="errors"></small></div>
+                <input type="text" id="username" placeholder="username">
+                <div class="error"><small id="usernameError" class="errors"></small></div>
             </div>
             <div class="form-group">
-                <small id="passwordError" class="error"></small>
-                <input type="password" id="password" placeholder="password" minlength="8" maxlength="20">
+                <input type="password" id="password" placeholder="password">
+                <div class="error"><small id="passwordError" class="errors"></small></div>
             </div>
             <button type="submit">Login</button>
         </form>

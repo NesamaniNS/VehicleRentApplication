@@ -24,6 +24,15 @@
         padding: 15px;
         box-sizing: border-box;
         }
+        .form select{
+        background: #f2f2f2;
+        width: 100%;
+        border: 0;
+        border-radius: 12px;
+        margin: 0 0 20px;
+        padding: 15px;
+        box-sizing: border-box;
+    }
     .form button {
     background-color: darkcyan;
     width: 30%;
@@ -32,6 +41,12 @@
     padding: 10px;
     color: white;
     cursor: pointer;
+    }
+    .form input.error-border{
+        border: 1px solid #ea7b78;
+    }
+    .form select.error-border{
+        border: 1px solid #ea7b78;
     }
 .error{
     color: #ea1109; 
@@ -77,29 +92,33 @@
         <div class="form">
             <div class="Headers">
                 <h3>Add discount</h3>
-                <p>Please enter credentials to add discount</p>
+                <p>Please enter the applicable discount for the vehicle.</p>
             </div>
             <div class="Discount">
                 <form id="DiscountformID">
                     <div class="form-group">
-                        <small id="Error" class="error"></small>
-                        <small id="DisIDerror" class="error"></small>
                         <input type="text" id="DiscountID" placeholder="DiscountID" minlength="5" maxlength="5">
+                        <small id="DisIDerror" class="error"></small>
                     </div>
             
                     <div class="form-group">
+                        <input type="text" id="DisPercent" placeholder="DiscountPercent" minlength="1" maxlength="3">
                         <small id="DisPercenterror" class="error"></small>
-                        <input type="text" id="DisPercent" placeholder="DiscountPercent" minlength="2" maxlength="2">
                     </div>
             
                     <div class="form-group">
-                        <small id="VINerror" class="error"></small>
                         <input type="text" id="VIN" placeholder="VIN" minlength="4">
+                        <small id="VINerror" class="error"></small>
                     </div>
-                    
+
                     <div class="form-group">
-                        <small id="Priceerror" class="error"></small>
-                        <input type="text" id="Price" placeholder="BookingPrice">
+                        <select id="Status">
+                            <option value="" disabled selected>Select Status</option>
+                            <option value="Active">Active</option>
+                            <option value="Inactive">Inactive</option>
+                            <option value="Expired">Expired</option>
+                        </select>
+                        <small id="Statuserror" class="error"></small>
                     </div>
                     
                     <div class="form-submit">

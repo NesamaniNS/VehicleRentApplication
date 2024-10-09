@@ -72,10 +72,13 @@
         .Booking #Submit:hover{
             color: white;
         }
+        .form input.error-border{
+        border: 1px solid #ea7b78;
+    }
         .error{
             color: red;  
             font-size: 12px;   
-            margin: 10px 0 5px 305px; 
+            margin: 5px 0 5px 320px; 
             display: block;
             height: 15px;
             width: 50%;
@@ -96,7 +99,7 @@
                         <th>DiscountID</th>
                         <th>DiscountPercent</th>
                         <th>VIN</th>
-                        <th>BookingPrice</th>
+                        <th>Status</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -108,7 +111,7 @@
                  <form id="DiscountForm">
                     <div class="form-group">
                         <label for="VIN">Vehicle identification number </label>
-                        <input type="text" id="vehicleNumber" placeholder="" minlength="4">
+                        <input type="text" id="vehicleNumber" placeholder="">
                         <small id="vehNumberError" class="error"></small>
                     </div>    
                  <button id="Submit" type="submit">Calculate price</button>

@@ -24,6 +24,7 @@
         float: right;
         border: 1px solid blue;
         border-radius: 12px;
+        cursor: pointer;
         }
     #Logout:hover{
             color: rgb(230, 55, 55);
@@ -31,10 +32,9 @@
     ul{
         box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
         margin-left: 8%;
-        margin-top: 5%;
         padding: 50px;
         width: 250px;
-        height: 300px;
+        height: 350px;
         text-align: center;
    }
    li a{
@@ -43,10 +43,15 @@
         text-decoration: none;
         background-color: skyblue;
         color: rgb(73, 70, 70);
-        padding: 11%;
+        padding: 10.5%;
    }
    li a:hover{
     background-color: rgb(122, 221, 249);
+   }
+   #AdminNameDisplay {
+    font-weight: bold;        
+    color: #101010;      
+    font-size: 1.1em;      
    }
     </style>
 </head>
@@ -54,17 +59,19 @@
     <div class="Container">
     <div class="Header"> 
         <a>VEHICLE RENT MANAGEMENT SYSTEM</a>       
-        <a href="../index.html" id="Logout">Logout</a>    
+        <a id="Logout">Logout</a>    
     </div>
     <div class="Content-Body">
-    <p>Welcome Admin.You Have all the Fields to Continue For Booking.</p>
+    <p>Welcome <span id="AdminNameDisplay"></span>. Here, you can easily manage all your tasks. Add new vehicles, track bookings, apply discounts, and review feedback from customers. </p>
     <ul style="list-style-type: none;">
         <li><a href="VehicleInsertion.html">VEHICLE INSERTION</a></li>
         <li><a href="AddDiscount.html">ADD DISCOUNT</a></li>
         <li><a href="ViewBooking.html">VIEW BOOKING</a></li>
         <li><a href="ViewFeedback.html">VIEW FEEDBACK</a></li>
+        <li><a href="VehicleStatus.html">VEHICLE STATUS</a></li>
      </ul>
     </div>
 </div>
+<script src="AdminIndex.js"></script>
 </body>
 </html>

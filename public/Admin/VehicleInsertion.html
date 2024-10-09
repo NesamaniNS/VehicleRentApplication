@@ -8,7 +8,7 @@
      
 .Container{
     width: 360px;
-    margin: 0 0 100px 460px;
+    margin-left: 35%;
 }
 .form {
     max-width: 250px;
@@ -17,6 +17,15 @@
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
     }
     .form input {
+        background: #f2f2f2;
+        width: 100%;
+        border: 0;
+        border-radius: 12px;
+        margin: 0 0 20px;
+        padding: 15px;
+        box-sizing: border-box;
+        }
+        .form select {
         background: #f2f2f2;
         width: 100%;
         border: 0;
@@ -66,6 +75,12 @@
     font-size: 20px;
     color: #211e1e;
 }
+.form input.error-border{
+        border: 1px solid #ea7b78;
+    }
+    .form select.error-border{
+        border: 1px solid #ea7b78;
+    }
 .close:hover,
 .close:focus{
     color: #ee0505;
@@ -78,30 +93,44 @@
         <div class="form">
             <div class="Headers">
                 <h3>Insert vehicle</h3>
-                <p>Please enter credentials to insert vehicle</p>
+                <p>Please enter the vehicle details</p>
             </div>
             <div class="VehicleInsertion">
                 <form id="VehicleformID">
                     <div class="form-group">
-                        <small id="Error" class="error"></small>
+                        <input type="text" id="VIN" placeholder="VIN">
                         <small id="VINerror" class="error"></small>
-                        <input type="text" id="VIN" placeholder="VIN" minlength="4" maxlength="12">
                     </div>
             
                     <div class="form-group">
-                        <small id="VehicleNameerror" class="error"></small>
                         <input type="text" id="VehicleName" placeholder="VehicleName">
+                        <small id="VehicleNameerror" class="error"></small>
                     </div>
             
-                    <div class="form-group">
-                        <small id="Priceerror" class="error"></small>
+                    <div class="form-group">                       
                         <input type="text" id="Price" placeholder="BookingPrice">
+                        <small id="Priceerror" class="error"></small>
                     </div>
-                    
+
                     <div class="form-group">
-                        <small id="Availabilityerror" class="error"></small>
-                        <input type="text" id="Availability" placeholder="Availability">
+                        <select id="VehicleType">
+                            <option value="" disabled selected>Vehicle Type</option>
+                            <option value="Economy">Economy</option>
+                            <option value="Luxury">Luxury</option>
+                            <option value="Premium">Premium</option>
+                            <option value="Semi-Luxury">Semi-Luxury</option>
+                        </select>
+                        <small id="VehicleTypeerror" class="error"></small>
                     </div>
+                    <div class="form-group">
+                        <select id="Availability">
+                            <option value="" selected disabled>Select Availability</option>
+                            <option value="available">Available</option>
+                            <option value="Booked">Booked</option>
+                        </select>
+                        <small id="Availabilityerror" class="error"></small>
+                    </div>
+                   
                        <button type="submit">Submit</button>
                 </form>
             </div>

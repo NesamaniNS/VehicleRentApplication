@@ -3,13 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Booked Vehicle</title>
+    <title>No Discount Available</title>
     <style>
         body{
             background-color: white;
         }
-       
+        .container{
+            text-align: center;
+        }
+        .form{
+        max-width: 85%;
+        margin: 0 10% 0 10%;
+        padding: 30px;
+        text-align: center;
+        box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+        }
+        h1 {
+            color: #e74c3c;
+        }
         h3{
+            margin: 0;
             text-align: center;
             color: forestgreen;
         }
@@ -22,7 +35,7 @@
         }
         
         th, td {
-        padding: 15px;
+        padding: 12px;
         } 
     
         tr:nth-child(even){
@@ -37,13 +50,6 @@
         th{
             background-color:rgb(9, 180, 180);
             color: black;
-        }
-        .form{
-        max-width: 85%;
-        margin: 0 10% 0 10%;
-        padding: 40px;
-        text-align: center;
-        box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
         }
         .Discount{
             background-color: rgb(128, 214, 220);
@@ -69,11 +75,16 @@
         </style>
 </head>
 <body>
-    <div id="BookedVehicleId" class="Container">
+    <div id="vehicleElementId">
+        <div class="container">
+            <h1>No Discounts Available</h1>
+            <p>Unfortunately, there are currently no discounts available for the vehicles.</p>
+            <p>Please check back later or explore our vehicles.</p>
+        </div>
         <div class="form">
               <div class="Header">
                      <h3>INTERCITY VEHICLES LIMITED</h3>
-                     <P>Available Vehicles are Here, Book Now!</P>
+                     <P>Available vehicles are here,book now!</P>
               </div>
               <div>
                      <table id="Vehicle">
@@ -82,13 +93,19 @@
                                   <th>VIN</th>
                                   <th>VehicleName</th>
                                   <th>BookingPrice</th>
-                                  <th>Availability</th>
+                                  <th>VehicleType</th>
                              </tr>
                          </thead>
-                         <tbody></tbody>
+                         <tbody>
+                         </tbody>
                      </table>   
               </div>
+              <div class="Discount">
+                <p>Click the link below to proceed with your booking and ensure you don't miss your chance to drive away in your preferred vehicle.</p>
+                <a href="VehicleBooking.html" id="button">Click Here!</a>                
+              </div>
         </div>
+ 
      </div>
      <script src="IndexGet.js"></script>
 </body>

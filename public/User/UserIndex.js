@@ -18,10 +18,14 @@ document.addEventListener('DOMContentLoaded',function(){
     const username = localStorage.getItem('username');
     const welcomeuser = document.getElementById('usernameDisplay');
 
-    if (username && welcomeuser) {
-        welcomeuser.textContent = username;
+    if (welcomeuser) { 
+        if (username) {
+            welcomeuser.textContent = username; 
+        } else {
+            welcomeuser.textContent = ''; 
+        }
     } else {
-        welcomeuser.textContent = '';
+        console.error('Element with ID "usernameDisplay" not found.'); 
     }
 
     const logout = document.getElementById('Logout');
@@ -66,43 +70,116 @@ function Registeruser(){
   document.getElementById('cityerror').textContent='';
   document.getElementById('contacterror').textContent='';
 
-  const UserName= document.getElementById('username').value;
-  const Password= document.getElementById('password').value;
-  const Email= document.getElementById('email').value;
-  const City= document.getElementById('city').value;
-  const ContactNumber= document.getElementById('contactnumber').value;
+  const usernameInput = document.getElementById('username');
+  const passwordInput = document.getElementById('password');
+  const EmailInput = document.getElementById('email');
+  const CityInput = document.getElementById('city');
+  const ContactNumberInput = document.getElementById('contactnumber');
 
-  const passwordPattern = /^(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
+
+  const UserName= usernameInput.value;
+  const Password= passwordInput.value;
+  const Email= EmailInput.value;
+  const City= CityInput.value;
+  const ContactNumber= ContactNumberInput.value;
+
+  usernameInput.classList.remove('error-border')
+  passwordInput.classList.remove('error-border')
+  EmailInput.classList.remove('error-border')
+  CityInput.classList.remove('error-border')
+  ContactNumberInput.classList.remove('error-border')
+
+  const emailPattern =  /^(?!.*\.\.)([a-z][a-z0-9.]{5,29})@[a-z][a-z.-]*\.com$/;
+  const emailPatternlong = /[a-zA-Z0-9.]{6,30}@gmail\.com$/;
+  const passwordPattern = /^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
   const contactPattern = /^[6-9]\d{9}$/;
+  const cityPattern = /^[A-Za-z\s]+$/; 
 
   let valid = true;
   
    if(UserName === ''){
-    document.getElementById('usernameerror').textContent='Username is required';
+    usernameInput.classList.add('error-border')
+    document.getElementById('usernameerror').textContent='Please enter a username';
+    valid = false;
+   }else if (UserName.length < 3) {
+    usernameInput.classList.add('error-border');
+    document.getElementById('usernameerror').textContent = 'Username must be at least 3 characters long.';
     valid = false;
    }
    if(Password === ''){
-    document.getElementById('passworderror').textContent='Password is required';
+    passwordInput.classList.add('error-border')
+    document.getElementById('passworderror').textContent='Please enter a password';
     valid = false;
    }else if(!passwordPattern.test(Password)){
+    passwordInput.classList.add('error-border')
     document.getElementById('passworderror').textContent = 'Password must be at least 8 characters, include a number, and a special character';
     valid = false;
    }
    if(Email === ''){
-    document.getElementById('Emailerror').textContent='Email is required';
+    EmailInput.classList.add('error-border')
+    document.getElementById('Emailerror').textContent='Please enter your email address';
     valid = false;
-   }
+   }else{
+    if(!emailPatternlong.test(Email)){
+    EmailInput.classList.add('error-border')
+    document.getElementById('Emailerror').textContent='Sorry, your username must be between 6 and 30 characters long.';
+    valid = false;
+   }else if(!emailPattern.test(Email)){
+    EmailInput.classList.add('error-border')
+    document.getElementById('Emailerror').textContent='Sorry, only letters (a-z), numbers (0-9), and periods(.) are allowed.';
+    valid = false;
+   }}
    if(City === ''){
-    document.getElementById('cityerror').textContent='City is required';
+    CityInput.classList.add('error-border')
+    document.getElementById('cityerror').textContent='Please enter a city';
+    valid = false;
+   }else if(!cityPattern.test(City)){
+    CityInput.classList.add('error-border')
+    document.getElementById('cityerror').textContent='City name should contain only letters';
     valid = false;
    }
    if(ContactNumber === ''){
-    document.getElementById('contacterror').textContent='Contactnumber is required';
+    ContactNumberInput.classList.add('error-border')
+    document.getElementById('contacterror').textContent='Please enter a contact number';
     valid = false;
    }else if(!contactPattern.test(ContactNumber)){
-    document.getElementById('contacterror').textContent='Enter a valid 10-digit Indian phone number';
+    ContactNumberInput.classList.add('error-border')
+    document.getElementById('contacterror').textContent='Please enter a valid 10-digit Indian phone number';
     valid = false;
    }
+
+   usernameInput.addEventListener('input', () => {
+       if(usernameInput){
+              usernameInput.classList.remove('error-border');
+              document.getElementById('usernameerror').textContent='';
+       }
+   })
+    
+   passwordInput.addEventListener('input', () => {
+    if(passwordInput){
+           passwordInput.classList.remove('error-border')
+           document.getElementById('passworderror').textContent='';
+    }
+   })
+   EmailInput.addEventListener('input', () => {
+    if(EmailInput){
+           EmailInput.classList.remove('error-border');
+           document.getElementById('Emailerror').textContent='';
+    }
+   }) 
+   CityInput.addEventListener('input', () => {
+    if(CityInput){
+           CityInput.classList.remove('error-border');
+           document.getElementById('cityerror').textContent='';
+    }
+   })
+   ContactNumberInput.addEventListener('input', () => {
+    if(ContactNumberInput){
+           ContactNumberInput.classList.remove('error-border');
+           document.getElementById('contacterror').textContent='';
+    }
+   })
+
    if (valid) {
 
     fetch('http://localhost:5000/registers', {
@@ -133,7 +210,17 @@ function Registeruser(){
             window.location.href = 'UserLogin.html';
          },3000);
         }else{
-              document.getElementById('Error').textContent = "Username or email is already exists!";
+            if(result.message === '!both'){
+                usernameInput.classList.add('error-border');
+                EmailInput.classList.add('error-border');
+                document.getElementById('usernameerror').textContent='Username and email is already exists!';
+            }else if(result.message === '!username'){
+                usernameInput.classList.add('error-border');
+                document.getElementById('usernameerror').textContent='Username already exists!';
+            }else if(result.message === '!Email'){
+                EmailInput.classList.add('error-border');
+                document.getElementById('Emailerror').textContent='Email already exists!';
+            }
         }
     })
     .catch(err => {
@@ -148,19 +235,53 @@ function UserLogin(){
     document.getElementById('usernameError').textContent = '';
     document.getElementById('passwordError').textContent = '';
     document.getElementById('Error').textContent='';
-  
-    const password = document.getElementById('password').value;
-    const username = document.getElementById('username').value;
+
+    const usernameInput = document.getElementById('username');
+    const passwordInput = document.getElementById('password');
+
+    const username = usernameInput.value;
+    const password = passwordInput.value;
+
+    usernameInput.classList.remove('error-border');
+    passwordInput.classList.remove('error-border');
+
+    const passwordPattern = /^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
+
 
     let valid = true;
+
     if (username === '') {
-        document.getElementById('usernameError').textContent = 'Username is required';
+        usernameInput.classList.add('error-border')
+        document.getElementById('usernameError').textContent = 'Please enter a username';
         valid = false;
-    }
+    }else if (username.length < 3) {
+        usernameInput.classList.add('error-border');
+        document.getElementById('usernameError').textContent = 'Username must be at least 3 characters long.';
+        valid = false;
+       }
     if(password === '') {
-        document.getElementById('passwordError').textContent = 'Password is required';
+        passwordInput.classList.add('error-border')
+        document.getElementById('passwordError').textContent = 'Please enter a password';
+        valid = false;
+    }else if(!passwordPattern.test(password)){
+        passwordInput.classList.add('error-border')
+        document.getElementById('passwordError').textContent = 'Password must be at least 8 characters, include a number, and a special character';
         valid = false;
     }
+
+    usernameInput.addEventListener('input', () => {
+        if (usernameInput) {
+            usernameInput.classList.remove('error-border');
+            document.getElementById('usernameError').textContent = '';
+        }
+    });
+    
+    passwordInput.addEventListener('input', () => {
+        if (passwordPattern) {
+            passwordInput.classList.remove('error-border');
+            document.getElementById('passwordError').textContent = '';
+        }
+    });
 
   if(valid){
 
@@ -177,10 +298,22 @@ function UserLogin(){
     .then(response => response.json())
     .then(result => {
         if (result.success) {
-            localStorage.setItem('username',username);
+            localStorage.setItem('Email',result.Email)
+            localStorage.setItem('username',result.username);
             window.location.href="UserDashboard.html";
         } else {
-            document.getElementById('Error').textContent = 'Username or Password is Incorrect';
+            console.log("result.message", result.message)
+            if(result.message === '!both'){
+                usernameInput.classList.add('error-border')
+                passwordInput.classList.add('error-border')
+                document.getElementById('passwordError').textContent = 'Invalid username and password';
+            }else if(result.message === '!username'){
+                usernameInput.classList.add('error-border')
+                document.getElementById('usernameError').textContent = 'Invalid username';
+            }else if(result.message === '!password'){
+                passwordInput.classList.add('error-border')
+                document.getElementById('passwordError').textContent = 'Invalid password';
+            }
         }
     })
     .catch(err => {
@@ -195,12 +328,25 @@ function DiscountPrice(){
 
       document.getElementById('vehNumberError').textContent = '';
       
-      const VIN = document.getElementById('vehicleNumber').value;
+      const VINInput = document.getElementById('vehicleNumber');
+
+      const VIN = VINInput.value;
+
+      VINInput.classList.remove('error-border');
+
+      const indianVINPattern =  /^[A-Z]{2}[ -]?[0-9]{2}[ -]?[A-Z]{1,2}[ -]?[0-9]{4}$/;
+
+      localStorage.setItem('VIN',VIN);
 
       let valid = true;
 
       if(VIN === ''){
+        VINInput.classList.add('error-border');
         document.getElementById('vehNumberError').textContent = 'Vehicle Number is Required';
+        valid = false;
+      }else if(!indianVINPattern.test(VIN)){
+        VINInput.classList.add('error-border');
+        document.getElementById('vehNumberError').textContent = 'Invalid vehicle number (e.g: TN01AB1234)';
         valid = false;
       }
       
@@ -217,9 +363,9 @@ function DiscountPrice(){
         .then(response => response.json())
         .then(result =>{
             if(result.success){
-                document.getElementById('vehNumberError').textContent ='Update Sucessfull';
                 window.location.href="AfterDiscount.html";
             }else {
+                VINInput.classList.add('error-border');
                 document.getElementById('vehNumberError').textContent = 'Please Enter Valid Vehicle Number';
             }
         })
@@ -232,40 +378,98 @@ function DiscountPrice(){
 
 function BookingVehicle(){
     
-    document.getElementById('usernameerror').textContent = '';
-    document.getElementById('emailerror').textContent = '';
-    document.getElementById('VINerror').textContent='';
-    document.getElementById('dateerror').textContent = '';
-    document.getElementById('Error').textContent='';
+    document.getElementById('VINerror').textContent = '';
+    document.getElementById('DateOfBirtherror').textContent = '';
+    document.getElementById('Gendererror').textContent = '';
+    document.getElementById('BookingTypeerror').textContent = '';
+    document.getElementById('BookingDateerror').textContent = '';
 
-    const username = document.getElementById('username').value;
-    const email = document.getElementById('Email').value;
-    const vin = document.getElementById('VIN').value;
-    const payment = document.getElementById('BookingType').value;
-    const date = document.getElementById('BookingDate').value;
+    const vinInput = document.getElementById('VIN');
+    const DateOfBirthInput = document.getElementById('DateOfBirth');
+    const GenderInput = document.getElementById('Gender');
+    const BookingTypeInput = document.getElementById('BookingType');
+    const BookingDateInput = document.getElementById('BookingDate');
+
+    const vin = vinInput.value;
+    const DateOfBirth = DateOfBirthInput.value;
+    const Gender = GenderInput.value;
+    const BookingType = BookingTypeInput.value;
+    const BookingDate = BookingDateInput.value;
+
+    vinInput.classList.remove('error-border');
+    DateOfBirthInput.classList.remove('error-border');
+    GenderInput.classList.remove('error-border');
+    BookingTypeInput.classList.remove('error-border');
+    BookingDateInput.classList.remove('error-border');
+
+    const UserName = localStorage.getItem('username');
+    const Email = localStorage.getItem('Email');
+
+    const indianVINPattern =  /^[A-Z]{2}[ -]?[0-9]{2}[ -]?[A-Z]{1,2}[ -]?[0-9]{4}$/;
 
     let valid = true;
 
-    if(username === '' && email === '' && vin === '' && date === '' ){
-        document.getElementById('Error').textContent = 'All Fields are Required';
-        return false;
-    }else if(username === ''){
-        document.getElementById('usernameerror').textContent = 'Username is Required';
-        return false;
-    }else if(email === ''){
-        document.getElementById('emailerror').textContent = 'Email is Required';
-        return false;
-    }else if(vin === ''){
-        document.getElementById('VINerror').textContent = 'Vehicle Number Required';
-        return false;
-    }else if(payment === ''){
-        document.getElementById('Error').textContent = 'Payment Method is Required';
-        return false;
-    }else if(date === ''){
-        document.getElementById('dateerror').textContent = 'Date is Required';
-        return false;
+    if(vin === ''){
+        vinInput.classList.add('error-border');
+        document.getElementById('VINerror').textContent = 'Please enter the Vehicle Identification Number';
+        valid = false;
+    }else if(!indianVINPattern.test(vin)){
+        vinInput.classList.add('error-border');
+        document.getElementById('VINerror').textContent = 'Invalid vehicle number (e.g: TN01AB1234)';
+        valid = false;
+    }
+    if(DateOfBirth === ''){
+        DateOfBirthInput.classList.add('error-border');
+        document.getElementById('DateOfBirtherror').textContent = 'Please enter your date of birth';
+        valid = false;
+    }
+    if(Gender === ''){
+        GenderInput.classList.add('error-border');
+        document.getElementById('Gendererror').textContent = 'Please select your gender';
+        valid = false;
+    }
+    if(BookingType === ''){
+        BookingTypeInput.classList.add('error-border');
+        document.getElementById('BookingTypeerror').textContent = 'Please select the type of booking';
+        valid = false;
+    }
+    if(BookingDate === ''){
+        BookingDateInput.classList.add('error-border');
+        document.getElementById('BookingDateerror').textContent = 'Please select the booking date';
+        valid = false;
     }
    
+    vinInput.addEventListener('input', () => {
+        if (vinInput) {
+            vinInput.classList.remove('error-border');
+            document.getElementById('VINerror').textContent = '';
+        }
+    });
+    DateOfBirthInput.addEventListener('input', () => {
+        if (DateOfBirthInput) {
+            DateOfBirthInput.classList.remove('error-border');
+            document.getElementById('DateOfBirtherror').textContent = '';
+        }
+    });
+    GenderInput.addEventListener('input', () => {
+        if (GenderInput) {
+            GenderInput.classList.remove('error-border');
+            document.getElementById('Gendererror').textContent = '';
+        }
+    });
+    BookingTypeInput.addEventListener('input', () => {
+        if (BookingTypeInput) {
+            BookingTypeInput.classList.remove('error-border');
+            document.getElementById('BookingTypeerror').textContent = '';
+        }
+    });
+    BookingDateInput.addEventListener('input', () => {
+        if (BookingDateInput) {
+            BookingDateInput.classList.remove('error-border');
+            document.getElementById('BookingDateerror').textContent = '';
+        }
+    });
+
     if(valid){
         fetch('http://localhost:5000/Booking',{
             headers:{
@@ -273,11 +477,13 @@ function BookingVehicle(){
             },
             method: 'POST',
             body:JSON.stringify({
-                UserName:username,
-                Email:email,
+                UserName:UserName,
+                Email:Email,
                 VIN:vin,
-                Payment:payment,
-                Date:date,
+                DateOfBirth:DateOfBirth,
+                Gender:Gender,
+                Payment:BookingType,
+                BookingDate:BookingDate,
             })
         })
         .then(response => response.json())
@@ -304,30 +510,81 @@ function BookingVehicle(){
         })
         .catch(err => {
             console.error('Error:', err);
-            document.getElementById('usernameerror').textContent = 'Registration failed. Please try again.';
+            document.getElementById('Error').textContent = 'Registration failed. Please try again.';
         });
         return valid;
     }
 }
 
 function FeedBackVehicle(){
-    document.getElementById('usernameError').textContent = '';
+    document.getElementById('feedbackTypeerror').textContent = '';
+    document.getElementById('VINerror').textContent = '';
+    document.getElementById('Dateerror').textContent = '';
     document.getElementById('feedbackError').textContent = '';
-    document.getElementById('Error').textContent='';
   
-    const username = document.getElementById('username').value;
-    const feedback = document.getElementById('feedback').value;
+    const feedbackTypeInput = document.getElementById('feedbackType');
+    const VINInput = document.getElementById('VIN');
+    const BookingDateInput = document.getElementById('experienceDate');
+    const feedbackInput = document.getElementById('feedback');
+
+    const feedbackType = feedbackTypeInput.value;
+    const VIN = VINInput.value;
+    const BookingDate = BookingDateInput.value;
+    const feedback = feedbackInput.value;
   
+    feedbackTypeInput.classList.remove('error-border');
+    VINInput.classList.remove('error-border');
+    BookingDateInput.classList.remove('error-border');
+    feedbackInput.classList.remove('error-border');
+
+    const UserName = localStorage.getItem('username');
+    const Email = localStorage.getItem('Email');
+
+    feedbackTypeInput.addEventListener('input', () => {
+        if (feedbackTypeInput) {
+            feedbackTypeInput.classList.remove('error-border');
+            document.getElementById('feedbackTypeerror').textContent = '';
+        }
+    });
+    VINInput.addEventListener('input', () => {
+        if (VINInput) {
+            VINInput.classList.remove('error-border');
+            document.getElementById('VINerror').textContent = '';
+        }
+    });
+    BookingDateInput.addEventListener('input', () => {
+        if (BookingDateInput) {
+            BookingDateInput.classList.remove('error-border');
+            document.getElementById('Dateerror').textContent = '';
+        }
+    });
+    feedbackInput.addEventListener('input', () => {
+        if (feedbackInput) {
+            feedbackInput.classList.remove('error-border');
+            document.getElementById('feedbackError').textContent = '';
+        }
+    });
+
     let valid = true;
-    if(username === '' && feedback === ''){
-        document.getElementById('Error').textContent = 'All Fields is Required';
+
+    if(feedbackType === '') {
+        feedbackTypeInput.classList.add('error-border');
+        document.getElementById('feedbackTypeerror').textContent = 'Please select a feedback type';
         valid = false;
     }
-    else if (username === '') {
-        document.getElementById('usernameError').textContent = 'Username is required';
+    if(VIN === '') {
+        VINInput.classList.add('error-border');
+        document.getElementById('VINerror').textContent = 'Please enter the Vehicle Identification Number';
         valid = false;
-    }else if(feedback === '') {
-        document.getElementById('feedbackError').textContent = 'FeedBack is required';
+    }
+    if(BookingDate === '') {
+        BookingDateInput.classList.add('error-border');
+        document.getElementById('Dateerror').textContent = 'Please select the booking date';
+        valid = false;
+    }
+    if(feedback === '') {
+        feedbackInput.classList.add('error-border');
+        document.getElementById('feedbackError').textContent = 'Please provide your feedback';
         valid = false;
     }
 
@@ -339,7 +596,11 @@ function FeedBackVehicle(){
         },
         method:'POST',
         body:JSON.stringify({
-            username: username,
+            UserName:UserName,
+            Email:Email,
+            FeedbackType: feedbackType,
+            VIN:VIN,
+            BookingDate:BookingDate,
             Feedback: feedback
         })
     })

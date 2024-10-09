@@ -13,18 +13,20 @@ app.use(express.urlencoded({ extended : false }));
 
 app.post('/registers', (request, response) => {
     console.log("inside /registers endpoint");
-
     const { Name, Password, Email, City, ContactNumber } = request.body; 
-    console.log('input'+Name, Password, Email, City, ContactNumber);
+    console.log('input'+ Name, Password, Email, City, ContactNumber);
     const db = dbService.getDbServiceInstance(); 
     db.userRegistration(Name, Password, Email, City, ContactNumber)
     .then(result => {
-        console.log('result'+result.affectedRows)
-        if(result && result.affectedRows >0){
+        if(result.success){
               response.json({success : true})
-        }else{
-              response.json({success :false})
-        }
+        }else if(result.errorType === 'both'){
+            response.json({ success :false , message:'!both'})
+        }else if(result.errorType === 'username'){
+              response.json({ success :false , message:'!username'})
+        }else if(result.errorType === 'Email'){
+            response.json({ success :false , message:'!Email'})
+      }
     })
         .catch(err => {
             console.error('Database Error:', err);
@@ -42,11 +44,19 @@ app.post('/userlogin',(request, response) => {
     db.UserLogin(username, password)
     
     .then(result => {
-        if (result && result.length > 0) {
-            console.log('Login Result:',result);
-            response.json({ success: true});
-        } else {
-            response.json({ success: false });
+        if (result.success) {
+            const user = result.user;
+            response.json({ success: true, 
+                            username: user.Name,
+                            Email: user.Email
+                        });
+                        console.log(result.user)
+        }else if(result.errorType === 'both'){
+            response.json({ success: false, message:'!both'});
+        }else if(result.errorType === 'username'){
+            response.json({ success: false, message:'!username'});
+        }else if(result.errorType === 'password'){
+            response.json({ success: false, message:'!password'});
         }
     })
     .catch(err => {
@@ -67,7 +77,10 @@ app.post('/AdminLogin',(request,response) =>{
   .then(result =>{
     console.log('Login Result:', result);
       if(result && result.length>0){
-          response.json({success : true});
+        const user = result[0];
+        response.json({ success: true, 
+                        username: user.Name
+                    });
       }else{
           response.json({success : false});
       }
@@ -130,10 +143,11 @@ app.put('/UpdateDiscount',(request,response)=>{
 app.get('/AfterDiscount',(request,response) =>{
 
     console.log('Inside Discount');
-
+    const VIN = request.query.VIN;
+    console.log('Vin',VIN);
     const db = dbService.getDbServiceInstance();
     
-    const result = db.AfterDiscount();
+    const result = db.AfterDiscount(VIN);
     
     result
     .then(data => response.json({data : data}))
@@ -143,11 +157,11 @@ app.get('/AfterDiscount',(request,response) =>{
 app.post('/Booking', (request, response) => {
     console.log("inside /registers endpoint");
 
-    const { UserName, Email, VIN, Payment, Date } = request.body; 
-
+    const {UserName, Email, VIN, DateOfBirth, Gender, Payment, BookingDate } = request.body; 
+    
     const db = dbService.getDbServiceInstance(); 
 
-    db.userBooking(UserName, Email, VIN, Payment, Date)
+    db.userBooking(UserName, Email, VIN, DateOfBirth, Gender, Payment, BookingDate)
     
         .then(result => {
             console.log('Query result:', result);
@@ -166,7 +180,7 @@ app.post('/Booking', (request, response) => {
                     from: process.env.EMAIL,
                     to: Email,
                     subject: 'Vehicle Booking Confirmation',
-                    text: `Dear ${UserName},\n\nYour vehicle with VIN ${VIN} has been successfully booked for ${Date}.\n\nPayment Method: ${Payment}\n\nThank you for choosing our service!\n\nBest Regards,\nIntercity Vehicles Limited`
+                    text: `Dear ${UserName},\n\nYour vehicle with VIN ${VIN} has been successfully booked for ${BookingDate}.\n\nPayment Method: ${Payment}\n\nThank you for choosing our service!\n\nBest Regards,\nIntercity Vehicles Limited`
                 }
 
                 sender.sendMail(mailconfigurations,(err,info)=>{
@@ -204,11 +218,11 @@ app.get('/BookedVehicle',(request,response) =>{
 app.post('/userFeedback',(request, response) => {
     console.log('Inside /userlogin endpoint');
 
-    const { username, Feedback } = request.body;
+    const {UserName, Email, FeedbackType, VIN, BookingDate, Feedback } = request.body;
 
     const db = dbService.getDbServiceInstance();
 
-    db.UserFeedback(username, Feedback)
+    db.UserFeedback(UserName, Email, FeedbackType, VIN, BookingDate, Feedback)
     
     .then(result => {
         console.log('Login Result:', result);
@@ -227,11 +241,11 @@ app.post('/userFeedback',(request, response) => {
 app.post('/VehicleInserts', (request, response) => {
     console.log("inside /registers endpoint");
 
-    const { VIN, VehicleName, Price, Availability } = request.body; 
+    const { VIN, VehicleName, Price,VehicleType, Availability } = request.body; 
 
     const db = dbService.getDbServiceInstance(); 
    
-    db.VehicleInsertion(VIN, VehicleName, Price, Availability)
+    db.VehicleInsertion(VIN, VehicleName, Price,VehicleType, Availability)
     
         .then(result => {
             if(result && result.affectedRows >0){
@@ -249,11 +263,11 @@ app.post('/VehicleInserts', (request, response) => {
 app.post('/DiscountInserts', (request, response) => {
     console.log("inside /registers endpoint");
 
-    const { DisID, DisPercent, VIN, Price } = request.body; 
+    const { DisID, DisPercent, VIN, Status } = request.body; 
 
     const db = dbService.getDbServiceInstance(); 
    
-    db.DiscountInsertion(DisID, DisPercent, VIN, Price)
+    db.DiscountInsertion(DisID, DisPercent, VIN, Status)
     
         .then(result => {
             if(result && result.affectedRows >0){
@@ -291,4 +305,16 @@ app.get('/FeedbackGets',(request,response) =>{
     .catch(err => console.log('Error for vehicle getting',err))
 });
 
+app.get('/AdminVehicleGets',(request,response) =>{
+
+    console.log('Inside vehicle');
+
+    const db = dbService.getDbServiceInstance();
+
+    const result = db.AdminGetVehicle();
+    console.log('resluts:',result);
+    result
+    .then(data => response.json({data : data}))
+    .catch(err => console.log('Error for vehicle getting',err))
+});
 app.listen(process.env.PORT,()=> console.log('APP is Running'));

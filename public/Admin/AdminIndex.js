@@ -9,6 +9,27 @@ document.addEventListener('DOMContentLoaded',function(){
     })
    }
 
+   const username = localStorage.getItem('username');
+   const welcomeAdmin = document.getElementById('AdminNameDisplay');
+
+   if(welcomeAdmin){
+    if(username){
+        welcomeAdmin.textContent = username;
+    }else{
+        welcomeAdmin.textContent = '';
+    }
+   }else {
+        console.error('Element with ID "usernameDisplay" not found.'); 
+    }
+
+    const logout = document.getElementById('Logout');
+               if(logout){
+                logout.addEventListener('click',function(){
+                    localStorage.removeItem('username');
+                    window.location.href = '../index.html';
+                })
+               }
+
    const Vehicle = document.getElementById('VehicleformID');
 
    if(Vehicle){
@@ -35,19 +56,47 @@ function AdminLogin(){
     document.getElementById('passwordError').textContent = '';
     document.getElementById('Error').textContent='';
   
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
+    const usernameInput = document.getElementById('username');
+    const passwordInput = document.getElementById('password');
+   
+    const username = usernameInput.value;
+    const password = passwordInput.value;
   
+    const passwordPattern = /^(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
+
+    usernameInput.classList.remove('error-border');
+    passwordInput.classList.remove('error-border');
+
+    usernameInput.addEventListener('input', () => {
+        if (usernameInput) {
+            usernameInput.classList.remove('error-border');
+            document.getElementById('usernameError').textContent = '';
+        }
+    });
+    passwordInput.addEventListener('input', () => {
+        if (passwordInput) {
+            passwordInput.classList.remove('error-border');
+            document.getElementById('passwordError').textContent = '';
+        }
+    });
+
     let valid = true;
-    if(username === '' && password === ''){
-        document.getElementById('Error').textContent = 'Username & Password is Required';
+    if (username === '') {
+        usernameInput.classList.add('error-border');
+        document.getElementById('usernameError').textContent = 'Please enter a username';
         valid = false;
-    }
-    else if (username === '') {
-        document.getElementById('usernameError').textContent = 'Username is required';
+    }else if (username.length < 3) {
+        usernameInput.classList.add('error-border');
+        document.getElementById('usernameError').textContent = 'Username must be at least 3 characters long.';
         valid = false;
-    }else if(password === '') {
-        document.getElementById('passwordError').textContent = 'Password is required';
+       }
+    if(password === '') {
+        passwordInput.classList.add('error-border');
+        document.getElementById('passwordError').textContent = 'Please enter a password';
+        valid = false;
+    }else if(!passwordPattern.test(password)){
+        passwordInput.classList.add('error-border')
+        document.getElementById('passwordError').textContent = 'Password must be at least 8 characters, include a number, and a special character';
         valid = false;
     }
 
@@ -66,10 +115,10 @@ function AdminLogin(){
     .then(response => response.json())
     .then(result => {
         if (result.success) {
-            document.getElementById('Error').textContent = 'Login successful';
+            localStorage.setItem('username',result.username);
             window.location.href="AdminDashboard.html";
         } else {
-            document.getElementById('Error').textContent = 'Invalid details';
+            document.getElementById('Error').textContent = 'Invalid username or password';
         }
     })
     .catch(err => {
@@ -85,34 +134,105 @@ function VehicleInsertion(){
     document.getElementById('VINerror').textContent = '';
     document.getElementById('VehicleNameerror').textContent = '';
     document.getElementById('Priceerror').textContent = '';
+    document.getElementById('VehicleTypeerror').textContent = '';
     document.getElementById('Availabilityerror').textContent = '';
-    document.getElementById('Error').textContent='';
 
-    const VIN = document.getElementById('VIN').value;
-    const VehicleName = document.getElementById('VehicleName').value;
-    const Price = document.getElementById('Price').value;
-    const Availability = document.getElementById('Availability').value;
+    const VINInput = document.getElementById('VIN');
+    const VehicleNameInput = document.getElementById('VehicleName');
+    const PriceInput = document.getElementById('Price');
+    const VehicleTypeInput = document.getElementById('VehicleType');
+    const AvailabilityInput = document.getElementById('Availability');
+     
+    VINInput.addEventListener('input', () => {
+        if (VINInput) {
+            VINInput.classList.remove('error-border');
+            document.getElementById('VINerror').textContent = '';
+        }
+    });
+    VehicleNameInput.addEventListener('input', () => {
+        if (VehicleNameInput) {
+            VehicleNameInput.classList.remove('error-border');
+            document.getElementById('VehicleNameerror').textContent = '';
+        }
+    });
+    PriceInput.addEventListener('input', () => {
+        if (PriceInput) {
+            PriceInput.classList.remove('error-border');
+            document.getElementById('Priceerror').textContent = '';
+        }
+    });
+    VehicleTypeInput.addEventListener('input', () => {
+        if (VehicleTypeInput) {
+            VehicleTypeInput.classList.remove('error-border');
+            document.getElementById('VehicleTypeerror').textContent = '';
+        }
+    });
+    AvailabilityInput.addEventListener('input', () => {
+        if (AvailabilityInput) {
+            AvailabilityInput.classList.remove('error-border');
+            document.getElementById('Availabilityerror').textContent = '';
+        }
+    });
+
+    const VIN = VINInput.value;
+    const VehicleName = VehicleNameInput.value;
+    const Price = PriceInput.value;
+    const VehicleType = VehicleTypeInput.value;
+    const Availability = AvailabilityInput.value;
+
+    VINInput.classList.remove('error-border');
+    VehicleNameInput.classList.remove('error-border');
+    PriceInput.classList.remove('error-border');
+    VehicleTypeInput.classList.remove('error-border');
+    AvailabilityInput.classList.remove('error-border');
+
+    const indianVINPattern =  /^[A-Z]{2}[ -]?[0-9]{2}[ -]?[A-Z]{1,2}[ -]?[0-9]{4}$/;
+    const validStateCodes = [
+        'AN', 'AP', 'AR', 'AS', 'BR', 'CH', 'CT', 'DN', 'DL', 'GA',
+        'GJ', 'HR', 'HP', 'JK', 'JH', 'KA', 'KL', 'MP', 'MH', 'MN',
+        'ML', 'OR', 'PB', 'RJ', 'SK', 'TN', 'TS', 'UK', 'UP', 'WB',
+    ];
 
     let valid = true;
     
-      if(VIN === '' && VehicleName === '' && Price === '' && Availability === ''){
-        document.getElementById('Error').textContent='All Fields are Required';
+       if(VIN === ''){
+        VINInput.classList.add('error-border');
+        document.getElementById('VINerror').textContent='Please enter the Vehicle Identification Number';
         valid = false;
-       }else if(VIN === ''){
-        document.getElementById('VINerror').textContent='VehicleNumber is Required';
+       }else if(!indianVINPattern.test(VIN)){
+        VINInput.classList.add('error-border');
+        document.getElementById('VINerror').textContent='Invalid vehicle number (e.g: TN01AB1234)';
         valid = false;
-       }else if(VehicleName === ''){
-        document.getElementById('VehicleNameerror').textContent='VehicleName is Required';
+       }else{
+          const Statecode = VIN.substring(0,2)
+          if(!validStateCodes.includes(Statecode)){
+            VINInput.classList.add('error-border');
+            document.getElementById('VINerror').textContent='Invalid state code in vehicle number';
+            valid = false;
+          }
+       }
+       if(VehicleName === ''){
+        VehicleNameInput.classList.add('error-border');
+        document.getElementById('VehicleNameerror').textContent='Please enter the vehicle name';
         valid = false;
-       }else if(Price === ''){
-        document.getElementById('Priceerror').textContent='BookingPrice is Required';
+       }
+       if(Price === ''){
+        PriceInput.classList.add('error-border');
+        document.getElementById('Priceerror').textContent='Please enter the booking price';
         valid = false;
-       }else if(Availability === ''){
-        document.getElementById('Availabilityerror').textContent='Vehicle Availability is Required';
+       }
+       if(VehicleType === ''){
+        VehicleTypeInput.classList.add('error-border');
+        document.getElementById('VehicleTypeerror').textContent='Please select the vehicle type';
+        valid = false;
+       }
+       if(Availability === ''){
+        AvailabilityInput.classList.add('error-border');
+        document.getElementById('Availabilityerror').textContent='Please specify the vehicles availability';
         valid = false;
        }
 
-       if (!valid) return false;
+       if (valid){
 
        fetch('http://localhost:5000/VehicleInserts', {
         headers: {
@@ -123,6 +243,7 @@ function VehicleInsertion(){
             VIN: VIN,
             VehicleName: VehicleName,
             Price: Price,
+            VehicleType:VehicleType,
             Availability: Availability,
         })
     })
@@ -143,7 +264,6 @@ function VehicleInsertion(){
         window.location.href = "AdminDashboard.html";
     })
    }
-   
         }else{
             document.getElementById('Error').textContent = 'Enter valid details';
         }
@@ -153,7 +273,7 @@ function VehicleInsertion(){
         console.error('Error:', err);
         document.getElementById('Error').textContent = 'Registration failed. Please try again.';
     });
-
+}
 }
 
 function VehicleDiscount(){
@@ -161,34 +281,71 @@ function VehicleDiscount(){
     document.getElementById('DisIDerror').textContent = '';
     document.getElementById('DisPercenterror').textContent = '';
     document.getElementById('VINerror').textContent = '';
-    document.getElementById('Priceerror').textContent = '';
-    document.getElementById('Error').textContent='';
+    document.getElementById('Statuserror').textContent ='';
+    
+    const DisIDInput = document.getElementById('DiscountID');
+    const DisPercentInput = document.getElementById('DisPercent');
+    const VINInput = document.getElementById('VIN');
+    const StatusInput = document.getElementById('Status')
 
-    const DisID = document.getElementById('DiscountID').value;
-    const DisPercent = document.getElementById('DisPercent').value;
-    const VIN = document.getElementById('VIN').value;
-    const Price = document.getElementById('Price').value;
+    DisIDInput.addEventListener('input', () => {
+        if (DisIDInput) {
+            DisIDInput.classList.remove('error-border');
+            document.getElementById('DisIDerror').textContent = '';
+        }
+    });
+    DisPercentInput.addEventListener('input', () => {
+        if (DisPercentInput) {
+            DisPercentInput.classList.remove('error-border');
+            document.getElementById('DisPercenterror').textContent = '';
+        }
+    });
+    VINInput.addEventListener('input', () => {
+        if (VINInput) {
+            VINInput.classList.remove('error-border');
+            document.getElementById('VINerror').textContent = '';
+        }
+    });
+    StatusInput.addEventListener('input', () => {
+        if (StatusInput) {
+            StatusInput.classList.remove('error-border');
+            document.getElementById('Statuserror').textContent = '';
+        }
+    });
+    const DisID = DisIDInput.value;
+    const DisPercent = DisPercentInput.value;
+    const VIN = VINInput.value;
+    const Status = StatusInput.value;
+    
+    DisIDInput.classList.remove('error-border')
+    DisPercentInput.classList.remove('error-border')
+    VINInput.classList.remove('error-border')
+    StatusInput.classList.remove('error-border')
 
     let valid = true;
-    
-      if(DisID === '' && DisPercent === '' && VIN === '' && Price === ''){
-        document.getElementById('Error').textContent='All Fields are Required';
-        valid = false;
-       }else if(DisID === ''){
-        document.getElementById('DisIDerror').textContent='DiscountID is Required';
-        valid = false;
-       }else if(DisPercent === ''){
-        document.getElementById('DisPercenterror').textContent='DiscountPercent is Required';
-        valid = false;
-       }else if(VIN === ''){
-        document.getElementById('VINerror').textContent='VehicleNumber is Required';
-        valid = false;
-       }else if(Price === ''){
-        document.getElementById('Priceerror').textContent='BookingPrice is Required';
+       
+       if(DisID === ''){
+        DisIDInput.classList.add('error-border')
+        document.getElementById('DisIDerror').textContent='Please enter the Discount ID';
         valid = false;
        }
-
-       if (!valid) return false;
+       if(DisPercent === ''){
+        DisPercentInput.classList.add('error-border')
+        document.getElementById('DisPercenterror').textContent='Please enter the discount percentage';
+        valid = false;
+       }
+       if(VIN === ''){
+        VINInput.classList.add('error-border')
+        document.getElementById('VINerror').textContent='Please enter the Vehicle Identification Number';
+        valid = false;
+       }
+       if(Status === ''){
+        StatusInput.classList.add('error-border')
+        document.getElementById('Statuserror').textContent='Please select the discount status';
+        valid = false;
+       }
+    
+       if (valid){
 
        fetch('http://localhost:5000/DiscountInserts', {
         headers: {
@@ -199,7 +356,7 @@ function VehicleDiscount(){
             DisID: DisID,
             DisPercent: DisPercent,
             VIN: VIN,
-            Price: Price,
+            Status: Status,
         })
     })
     .then(response => response.json())
@@ -227,4 +384,5 @@ function VehicleDiscount(){
         console.error('Error:', err);
         document.getElementById('Error').textContent = 'Registration failed. Please try again.';
     });
+}
 }

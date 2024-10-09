@@ -19,9 +19,14 @@ document.addEventListener('DOMContentLoaded',function(){
     const Discount = document.getElementById('AfterDiscountId');
 
     if(Discount){
-        fetch('http://localhost:5000/AfterDiscount')
+        const VIN = localStorage.getItem('VIN')
+        if(VIN){
+        fetch('http://localhost:5000/AfterDiscount?VIN='+ VIN)
         .then(response => response.json())
         .then(data => AfterDiscount(data['data']));
+    } else {
+        console.error('VIN not found');
+    }
     }
 
     const BookedVehicle = document.getElementById('BookedVehicleId');
@@ -46,12 +51,12 @@ function VehicleGets(data){
 
     let tableHtml = "";
 
-    data.forEach(function ({ VIN, VehicleName, BookingPrice, Availability}) {
+    data.forEach(function ({ VIN, VehicleName, BookingPrice, VehicleType}) {
         tableHtml += "<tr>";
         tableHtml += `<td>${VIN}</td>`; 
         tableHtml += `<td>${VehicleName}</td>`;
         tableHtml += `<td>${BookingPrice}</td>`;
-        tableHtml += `<td>${Availability}</td>`;
+        tableHtml += `<td>${VehicleType}</td>`;
         tableHtml += "</tr>";
     });
 
@@ -64,18 +69,18 @@ function DiscountGets(data){
     const table = document.querySelector('#Discount tbody');
 
     if (data.length === 0) {
-        table.innerHTML = "<tr><td class='no-data' colspan='4'>No discounts found! Enter available vehicle number to continue booking</td></tr>";
+        window.location.href="NoDiscount.html";
         return;
     }
 
     let tableHtml = "";
 
-    data.forEach(function ({ DiscountID, DiscountPercent, VIN, BookingPrice}) {
+    data.forEach(function ({ DiscountID, DiscountPercent, VIN, Status}) {
         tableHtml += "<tr>";
         tableHtml += `<td>${DiscountID}</td>`; 
         tableHtml += `<td>${DiscountPercent}</td>`;
         tableHtml += `<td>${VIN}</td>`;
-        tableHtml += `<td>${BookingPrice}</td>`;
+        tableHtml += `<td>${Status}</td>`;
         tableHtml += "</tr>";
     });
 
