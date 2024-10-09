@@ -335,6 +335,11 @@ function DiscountPrice(){
       VINInput.classList.remove('error-border');
 
       const indianVINPattern =  /^[A-Z]{2}[ -]?[0-9]{2}[ -]?[A-Z]{1,2}[ -]?[0-9]{4}$/;
+      const validStateCodes = [
+        'AN', 'AP', 'AR', 'AS', 'BR', 'CH', 'CT', 'DN', 'DL', 'GA',
+        'GJ', 'HR', 'HP', 'JK', 'JH', 'KA', 'KL', 'MP', 'MH', 'MN',
+        'ML', 'OR', 'PB', 'RJ', 'SK', 'TN', 'TS', 'UK', 'UP', 'WB',
+      ];
 
       localStorage.setItem('VIN',VIN);
 
@@ -348,6 +353,13 @@ function DiscountPrice(){
         VINInput.classList.add('error-border');
         document.getElementById('vehNumberError').textContent = 'Invalid vehicle number (e.g: TN01AB1234)';
         valid = false;
+      }else{
+         const Statecode = VIN.substring(0,2);
+         if(!validStateCodes.includes(Statecode)){
+            VINInput.classList.add('error-border');
+            document.getElementById('vehNumberError').textContent = 'Invalid state code in vehicle number';
+            valid = false;
+         }
       }
       
       if(valid){
@@ -406,6 +418,11 @@ function BookingVehicle(){
     const Email = localStorage.getItem('Email');
 
     const indianVINPattern =  /^[A-Z]{2}[ -]?[0-9]{2}[ -]?[A-Z]{1,2}[ -]?[0-9]{4}$/;
+    const validStateCodes = [
+        'AN', 'AP', 'AR', 'AS', 'BR', 'CH', 'CT', 'DN', 'DL', 'GA',
+        'GJ', 'HR', 'HP', 'JK', 'JH', 'KA', 'KL', 'MP', 'MH', 'MN',
+        'ML', 'OR', 'PB', 'RJ', 'SK', 'TN', 'TS', 'UK', 'UP', 'WB',
+    ];
 
     let valid = true;
 
@@ -417,6 +434,13 @@ function BookingVehicle(){
         vinInput.classList.add('error-border');
         document.getElementById('VINerror').textContent = 'Invalid vehicle number (e.g: TN01AB1234)';
         valid = false;
+    }else{
+        const Statecode = vin.substring(0,2);
+        if(!validStateCodes.includes(Statecode)){
+            vinInput.classList.add('error-border');
+            document.getElementById('VINerror').textContent = 'Invalid state code in vehicle number';
+            valid = false;
+        }
     }
     if(DateOfBirth === ''){
         DateOfBirthInput.classList.add('error-border');
