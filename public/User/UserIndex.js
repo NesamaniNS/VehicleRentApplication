@@ -24,10 +24,8 @@ document.addEventListener('DOMContentLoaded',function(){
         } else {
             welcomeuser.textContent = ''; 
         }
-    } else {
-        console.error('Element with ID "usernameDisplay" not found.'); 
     }
-
+    
     const logout = document.getElementById('Logout');
                if(logout){
                 logout.addEventListener('click',function(){
@@ -390,25 +388,21 @@ function DiscountPrice(){
 
 function BookingVehicle(){
     
-    document.getElementById('VINerror').textContent = '';
     document.getElementById('DateOfBirtherror').textContent = '';
     document.getElementById('Gendererror').textContent = '';
     document.getElementById('BookingTypeerror').textContent = '';
     document.getElementById('BookingDateerror').textContent = '';
 
-    const vinInput = document.getElementById('VIN');
     const DateOfBirthInput = document.getElementById('DateOfBirth');
     const GenderInput = document.getElementById('Gender');
     const BookingTypeInput = document.getElementById('BookingType');
     const BookingDateInput = document.getElementById('BookingDate');
 
-    const vin = vinInput.value;
     const DateOfBirth = DateOfBirthInput.value;
     const Gender = GenderInput.value;
     const BookingType = BookingTypeInput.value;
     const BookingDate = BookingDateInput.value;
 
-    vinInput.classList.remove('error-border');
     DateOfBirthInput.classList.remove('error-border');
     GenderInput.classList.remove('error-border');
     BookingTypeInput.classList.remove('error-border');
@@ -416,6 +410,7 @@ function BookingVehicle(){
 
     const UserName = localStorage.getItem('username');
     const Email = localStorage.getItem('Email');
+    const vin = localStorage.getItem('BookingVIN');
 
     const indianVINPattern =  /^[A-Z]{2}[ -]?[0-9]{2}[ -]?[A-Z]{1,2}[ -]?[0-9]{4}$/;
     const validStateCodes = [
@@ -426,22 +421,22 @@ function BookingVehicle(){
 
     let valid = true;
 
-    if(vin === ''){
-        vinInput.classList.add('error-border');
-        document.getElementById('VINerror').textContent = 'Please enter the Vehicle Identification Number';
-        valid = false;
-    }else if(!indianVINPattern.test(vin)){
-        vinInput.classList.add('error-border');
-        document.getElementById('VINerror').textContent = 'Invalid vehicle number (e.g: TN01AB1234)';
-        valid = false;
-    }else{
-        const Statecode = vin.substring(0,2);
-        if(!validStateCodes.includes(Statecode)){
-            vinInput.classList.add('error-border');
-            document.getElementById('VINerror').textContent = 'Invalid state code in vehicle number';
-            valid = false;
-        }
-    }
+    // if(vin === ''){
+    //     vinInput.classList.add('error-border');
+    //     document.getElementById('VINerror').textContent = 'Please enter the Vehicle Identification Number';
+    //     valid = false;
+    // }else if(!indianVINPattern.test(vin)){
+    //     vinInput.classList.add('error-border');
+    //     document.getElementById('VINerror').textContent = 'Invalid vehicle number (e.g: TN01AB1234)';
+    //     valid = false;
+    // }else{
+    //     const Statecode = vin.substring(0,2);
+    //     if(!validStateCodes.includes(Statecode)){
+    //         vinInput.classList.add('error-border');
+    //         document.getElementById('VINerror').textContent = 'Invalid state code in vehicle number';
+    //         valid = false;
+    //     }
+    // }
     if(DateOfBirth === ''){
         DateOfBirthInput.classList.add('error-border');
         document.getElementById('DateOfBirtherror').textContent = 'Please enter your date of birth';
@@ -463,12 +458,12 @@ function BookingVehicle(){
         valid = false;
     }
    
-    vinInput.addEventListener('input', () => {
-        if (vinInput) {
-            vinInput.classList.remove('error-border');
-            document.getElementById('VINerror').textContent = '';
-        }
-    });
+    // vinInput.addEventListener('input', () => {
+    //     if (vinInput) {
+    //         vinInput.classList.remove('error-border');
+    //         document.getElementById('VINerror').textContent = '';
+    //     }
+    // });
     DateOfBirthInput.addEventListener('input', () => {
         if (DateOfBirthInput) {
             DateOfBirthInput.classList.remove('error-border');

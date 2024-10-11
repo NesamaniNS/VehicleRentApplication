@@ -92,13 +92,15 @@ function AfterDiscount(data){
 
     const table = document.querySelector('#AfterDiscount tbody');
 
+    localStorage.setItem('BookingVIN',data[0].VIN);
+  
     if (data.length === 0) {
         table.innerHTML = "<tr><td class='no-data' colspan='4'>No discount vehicles found! Please note the vehicle number u want to book.</td></tr>";
         return;
     }
 
     let tableHtml = "";
-
+   
     data.forEach(function ({ DiscountID, DiscountPercent, VIN, DiscountPrice}) {
         tableHtml += "<tr>";
         tableHtml += `<td>${DiscountID}</td>`; 
@@ -107,7 +109,6 @@ function AfterDiscount(data){
         tableHtml += `<td>${DiscountPrice}</td>`;
         tableHtml += "</tr>";
     });
-
     table.innerHTML = tableHtml;
 }
 

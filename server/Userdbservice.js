@@ -156,7 +156,6 @@ class DbService {
                   
                 connection.query(query,VIN,(err,result)=>{
                     if(err) reject(new Error(err.message));
-                    console.log('Query result:', result);
                         resolve(result);
                 })
             })
@@ -173,7 +172,6 @@ class DbService {
                 const query = 'select DiscountID,DiscountPercent,discount.VIN,DiscountPrice from discount where VIN =?';
                 connection.query(query,VIN,(err,result) => {
                     if(err) reject(new Error(err.message));
-                    console.log('Query result:', result);
                         resolve(result);
                 })
             })

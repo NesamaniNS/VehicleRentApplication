@@ -148,7 +148,6 @@ app.get('/AfterDiscount',(request,response) =>{
     const db = dbService.getDbServiceInstance();
     
     const result = db.AfterDiscount(VIN);
-    
     result
     .then(data => response.json({data : data}))
     .catch(err => console.log('Error for vehicle getting',err))
